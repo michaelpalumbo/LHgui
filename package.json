@@ -1,0 +1,24 @@
+{
+  "name": "lhgui",
+  "version": "1.0.0",
+  "description": "gui / interface for lasg/pbai workshop2018...",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michaelpalumbo/LHgui.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/michaelpalumbo/LHgui/issues"
+  },
+  "homepage": "https://github.com/michaelpalumbo/LHgui#readme",
+  "dependencies": {
+    "ip": "^1.1.5",
+    "web-terminal": "^0.7.0"
+  }
+}
