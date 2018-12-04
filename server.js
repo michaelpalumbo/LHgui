@@ -15,12 +15,21 @@ const ip = require('ip')
 
 
 //process.chdir(process.argv[2] || ".");
-const project_path = path.join(__dirname);
+const project_path = path.join('../17540-Luddy-Hall/');
 const server_path = __dirname;
 const client_path = path.join(server_path, "client");
 console.log("project_path", project_path);
 console.log("server_path", server_path);
 console.log("client_path", client_path);
+
+var sourceFile = 'LuddyLaptopMaster.py'
+console.log(sourceFile, ' loaded!')
+
+var sourceCode = fs.readFileSync(path.join(__dirname, sourceFile), 'utf-8')
+console.log(sourceCode)
+ sourceCode = JSON.stringify(sourceCode)
+// console.log(JSON.stringify(sourceCode))
+
 
 /*
 // vorpal CLI interaction
@@ -77,7 +86,20 @@ wss.on('connection', function(ws, req) {
 	};
 	sessions[session.id] = session;
 	console.log("server received a connection, new session " + session.id);
-	console.log("server has "+wss.clients.size+" connected clients");
+  console.log("server has "+wss.clients.size+" connected clients");
+  
+  // session.id.send('source',sourceCode)
+  // send_all_clients('source',sourceCode)
+  // console.log(sourceCode)
+
+  // function sendSource(ast, session) {
+    session.socket.send(JSON.stringify({
+      session: session.id,
+      date: Date.now(),
+      type: "source",
+      value: sourceCode
+    }));
+  // }
 	
 	const location = url.parse(req.url, true);
 	// You might use location.query.access_token to authenticate or share sessions
@@ -164,10 +186,10 @@ function handleMessage(msg, session) {
 	
 	switch (msg.type) {
 
-		case "get_ast": {
-			send_ast(cpp2json(), session);
-		}
-		break;
+		// case "get_source": {
+		// 	send_all_clients('source?',sourceCode)
+		// }
+		// break;
 		
 	}
 }

@@ -1,31 +1,524 @@
+<!doctype html>
 <html>
+<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+<title>Alicenode State Editor</title>
+
 <head>
-  <script src="js/3d-force-graph.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="css/w2ui-1.5.rc1.css" />
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-  <script type="text/javascript" src="js/w2ui-1.5.rc1.min.js"></script>
-  <!--<script src="../../dist/3d-force-graph.js"></script>-->
+<!-- //TEMPORARY: just to aid in development workflow -->
+<!-- <meta http-equiv="refresh" content="5; URL=http://localhost:8080"> -->
+<!--        SOURCES         -->
+<!-- Codemirror -->
+    <!-- styles -->
+
+    <link rel=stylesheet href="cm/docs.css">
+    <link rel=stylesheet href="cm/codemirror.css">
+    <link rel=stylesheet href="cm/addons/fullscreen/fullscreen.css">
+    <link rel=stylesheet href="cm/one-dark.css">
+
+
+
+    <!-- <link rel=stylesheet href="cm/merge.css">
+    <link rel=stylesheet href="cm/icecoder.css"> -->
+
+    <!-- scripts -->
+    <script src="cm/codemirror.js"></script>
+    <script src="cm/css.js"></script>
+    <!-- load local server version if cdn unavailable -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/diff_match_patch/20121119/diff_match_patch.js"></script><script>if (!window.jQuery) document.write('<script src="cm/diff_match_patch.js"><\/script>');</script> -->
+
+    <!-- <script src="cm/htmlmixed.js"></script> -->
+    <!-- <script src="cm/xml.js"></script> -->
+    <!-- <script src="cm/merge.js"></script> -->
+    <!-- <script src="cm/modes/javascript.js"></script> -->
+    <script src="cm/modes/clike.js"></script>
+    <script src="cm/modes/glsl.js"></script>
+      <script src="cm/addons/buttons/buttons.js"></script>
+  <script src="cm/addons/panel.js"></script>
+  <script src="cm/addons/fullscreen/fullscreen.js"></script>
+  <script src="cm/cm-resize.js"></script>
+
+
+<!-- General Sources -->
+    <!-- style -->
+    <link rel=stylesheet href="css/jquery-ui.css">
+
+    <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
+
+    <link rel=stylesheet href="css/cards.css">
+    <script src="js/jquery-3.3.1.js"></script>
+    <script src="js/jquery-ui.js"></script>
+
+    <!-- resizeable columns -->
+    <link rel=stylesheet href="css/colresizeable.css">
+
+    <script src="js/colResizable-1.5.min.js"></script>
+
+    <script src="js/jquery.mousewheel.js"></script>
+
+    <!-- server address & open/close -->
+
 </head>
-<script>
-    //workaround for cross domain origin requests issue
-document.domain = document.domain;
-</script>
 
 <style>
-    body { margin: 20; background-color:white }
-    .tab {
-        width: 100%;
-        height: 100%;
-        border: 1px solid silver;
-        border-top: 0px;
-        display: none;
-        padding: 10px;
-        overflow: auto;
-    }
+
+.cm-highlight {color: lightgreen; background-color: green}
+.cm-highlight-lastLine {color: rgb(144, 182, 238); background-color: rgb(0, 102, 128)}
+.CodeMirror-selection-highlight-scrollbar {background-color: green}
+
+/* <!-- rgb(39, 174, 96)
+rgb(142, 68, 173)
+rgb(218, 247, 166)
+rgb(255, 195, 0)
+rgb(255, 87, 51)
+rgb(199, 0, 57) --> */
+/* .cm {
+    width:200px;
+   	margin:auto;
+    font-size:14px;
+    border:1px solid #000;
+    border-collapse:collapse; }
+
+.cm td {
+    color:#000099;
+    vertical-align:middle;
+    text-align:left;
+    border:1px solid #000;
+    height: 100% } */
+
+/* .stateParams {
+
+} */
 </style>
 
-<body >
-osc-api stuff goes here
-  </body>
+<!-- containing table -->
+<table width="100%" height="100%">
+    <tr  height="5%" >
+        <th style="text-decoration: none">LHGUI State Editor</th>
+        <th>
+            Parameters
+        </th>
+        <th>
+                <input id="server" type="text" value="ws://localhost:8080" size="40">
+                <button onclick="openSocket()">Open</button>
+                <button onclick="closeSocket()">Close</button>
+        </th>
+    </tr>
+    <tr></tr>
+        <td>
 
-  </html>
+            <button id="writeStateH">Save</button>
+            <button id="clearHighlights">Clear Highlighting</button>
+            <div id="stateh_source"></div> 
+            <table name="stateParams" id="stateValues" width="100%" border="0" cellpadding="0" cellspacing="0" display="inline-block";>
+                    <tbody>
+                        <tr >
+                            <th style="width: 40%;">Parameter</th>
+                            <th style="width: 20%;">Type</th>
+                            <th style="width: 40%;">Value</th>          
+                        </tr>
+                    </tbody>
+                </table>
+        </td>
+        <td valign="top">
+            <!-- table for the state.h parameters and values -->
+            <table name="stateParams2" id="stateValues2" width="100%" border="0" cellpadding="0" cellspacing="0" display="inline-block";>
+                <tbody>
+                    <tr >
+                        <th style="width: 40%;">Parameter</th>
+                        <th style="width: 20%;">Type</th>
+                        <th style="width: 40%;">Value</th>          
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td valign="top">
+            <!-- table for the state.h parameters and values -->
+            <table name="stateParams3" id="stateValues3" width="100%" border="0" cellpadding="0" cellspacing="0" display="inline-block";>
+                <tbody>
+                    <tr >
+                        <th style="width: 40%;">Parameter</th>
+                        <th style="width: 20%;">Type</th>
+                        <th style="width: 40%;">Value</th>          
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        
+    </tr>
+
+</table>
+
+<script>
+    
+var cardIdArray = []; //store the list of card ID names
+var value = "//new card" //default contents of a new card. can be replaced by a code fragment from the server
+
+var count = 1; //count the number of cards generated, start at 1
+var cardId = 1; //id for each new card div created
+
+var bodySize = [document.body.clientWidth, document.body.clientHeight]
+var ws_url;
+var worktreeList;
+var history;
+var ws;
+var ws_url = "ws://" + window.location.host;
+//the alicenode state:
+var state = [];
+var lines = []
+var lastLine;
+
+function log(msg){
+  console.log(msg)
+}
+
+document.getElementById('server').value = ws_url;
+
+function openSocket() {
+    
+    var url = document.getElementById('server').value;
+    ws = new WebSocket(ws_url);
+    ws.binaryType = 'arraybuffer';
+    ws.onopen = function() {
+        // request the most-recent state from the server
+        ws.send("stateEditorConnect?")
+        sessionStorage.echoServer = url;
+    };
+    ws.onclose = function() {
+        // meh
+    };
+    ws.onmessage = function(e) {
+
+        if (e.data instanceof ArrayBuffer) {
+            let s = "";
+            let fv = new Float32Array(e.data);
+            for (var i = 0; i < fv.length; i+=3) {
+                s += "<li>" + (i/3 + ": { " + fv[i] + ", " + fv[i+1] + ", " + fv[i+2] + " }</li>");
+            }
+                        
+        } else {
+            let message = e.data;
+            let q = message.indexOf("?");
+            if (q > 0) {
+                let cmd = message.substring(0, q);
+                let arg = message.substring(q+1);
+                switch(cmd) {
+
+                                        //////////////
+                    //filter out known messages bound for the other pages:
+                    case "src":
+                    case "deck":
+                    break;
+                    //////////////
+                    
+                    //if the ast parser or mmap retrieval reports errors or warnings:
+                    case "serverWarnings": 
+                    var li = document.createElement('li');
+                    var list = document.getElementById('serverWarnings');
+
+                    li.innerHTML = (arg);
+                    list.appendChild(li);
+
+                    var serverWarnings = document.querySelector('#serverWarnings');
+                    break;
+
+
+                    case "state.h":
+                    stateCode = JSON.parse(arg)
+                    //note, we may not pass the state using state.h, but instead could just regen it from the ast received by the next case statement below, aka 'state'
+                    stateH(stateCode)
+                    //get and set code in the new card
+                    break;
+                    
+                    case "state":
+                    //we need to clear the table rows (except for the first, since [1]in order to add after last we need something there already, annnnd the 0th table row is our table header!)
+                    
+                    $("#stateValues").find("tr:gt(0)").remove();
+                    $("#stateValues2").find("tr:gt(0)").remove();
+                    
+                    //console.log(arg)
+
+                    
+                    
+                    state = (JSON.parse(arg))
+                    console.log(state)
+                    let offset;
+                    let type;
+                    let pName;
+                    let pValue;
+                    let start;
+                    let end;
+                    let rowCount = 0;
+                    Object.keys(state).forEach(function(key, value) {
+                        rowCount++;
+                        //console.log(state[key].paramName)
+                        pName;
+                        
+                         type = state[key].type;
+                         pName = state[key].paramName;
+                         pValue = state[key].paramValue;
+                         begin = state[key].begin;
+                         end = state[key].end;
+
+
+                        //different types will require different ui elements.
+                            switch (type) {
+                                
+                                // a float or an int will use the jquery spinner
+                                case "float":
+                                case "int":
+                                case "double":
+                                // 
+                                // $('#stateParams tr').click(function(){
+                                //     $(this).remove();
+                                //     return false;
+                                //});
+                                if (rowCount <= 9) {
+                                    $('#stateValues tr:last').after('<tr height=10px id=\"row_' + pName + '\"><td>' + pName + '</td><td><h3>' + type + '</h3></td><td>' + '<input id=\"' + pName + '\" class="param" onchange="updateState(this)" value=\"' + pValue + '\"></input>' + '</td></tr>');
+
+                                   // prevent enter keypress on spinner (currently crashes the state...)
+                                   $('#' + pName).on('keyup keypress', function(e) {
+                                        var keyCode = e.keyCode || e.which;
+                                        if (keyCode === 13) { 
+                                            e.preventDefault();
+                                            return false;
+                                        }
+                                    });                                    
+                                    // turn the input element into a jquery spinner
+                                    $("#" + pName).spinner({
+                                        step: 0.1,
+                                    });
+                                    // have the spinner report its value whenever it gets changed by mouse or keyboard events.
+                                    $( "#" + pName ).spinner({spin: function( event, ui, id ) {
+                                        updateState(this.id, ui.value);
+                                        }
+                                    });
+                                    $().data('mmapData', { offset: offset })
+
+                                    $("#" + pName).width(100);
+                                } else if (rowCount > 9 && rowCount <= 28) {
+                                    $('#stateValues2 tr:last').after('<tr height=10px id=\"row_' + pName + '\"><td>' + pName + '</td><td><h3>' + type + '</h3></td><td>' + '<input id=\"' + pName + '\" class="param" onchange="updateState(this)" value=\"' + pValue + '\"></input>' + '</td></tr>');
+
+                                    // prevent enter keypress on spinner (currently crashes the state...)
+                                    $('#' + pName).on('keyup keypress', function(e) {
+                                        var keyCode = e.keyCode || e.which;
+                                        if (keyCode === 13) { 
+                                            e.preventDefault();
+                                            return false;
+                                        }
+                                    });
+                                    // turn the input element into a jquery spinner
+                                    $("#" + pName).spinner({
+                                        step: 0.1,
+                                    });
+                                    // have the spinner report its value whenever it gets changed by mouse or keyboard events.
+                                    $( "#" + pName ).spinner({spin: function( event, ui, id ) {
+                                        updateState(this.id, ui.value);
+                                        }
+                                    });
+                                    $().data('mmapData', { offset: offset })
+
+                                    $("#" + pName).width(100);
+                                } else {
+                                    $('#stateValues3 tr:last').after('<tr height=10px id=\"row_' + pName + '\"><td>' + pName + '</td><td><h3>' + type + '</h3></td><td>' + '<input id=\"' + pName + '\" class="param" onchange="updateState(this)" value=\"' + pValue + '\"></input>' + '</td></tr>');
+
+                                    // prevent enter keypress on spinner (currently crashes the state...)
+                                    $('#' + pName).on('keyup keypress', function(e) {
+                                        var keyCode = e.keyCode || e.which;
+                                        if (keyCode === 13) { 
+                                            e.preventDefault();
+                                            return false;
+                                        }
+                                    });
+                                    // turn the input element into a jquery spinner
+                                    $("#" + pName).spinner({
+                                        step: 0.1,
+                                    });
+                                    // have the spinner report its value whenever it gets changed by mouse or keyboard events.
+                                    $( "#" + pName ).spinner({spin: function( event, ui, id ) {
+                                        updateState(this.id, ui.value);
+                                        }
+                                    });
+                                    $().data('mmapData', { offset: offset })
+
+                                    $("#" + pName).width(100);
+
+                                }
+
+                                break;
+
+
+                                
+                                // for params whose type we haven't yet figure out how to retrieve
+                                default:
+
+                                    //TEMPORARY:
+
+                                    pValue = type
+
+
+                                    $('#stateValues tr:last').after('<tr id=\"row_' + pName + '\"><td>' + pName + '</td><td>' + '<input type=text id=\"' + pName + '\" class="param" onchange="updateState(this)" value=\"' + pValue + '\"></input>' + '</td></tr>');
+                                        //these are arrays, so we cant just put them into a spinner ui.
+
+                                        // turn the input element into a jquery spinner
+                                        // $("#" + pName).spinner({
+                                        //     step: 0.1,
+                                        // });
+                                    // have the input report its value whenever it gets changed by mouse or keyboard events.
+                                    $( "#" + pName ).on("change paste keyup", function( event, ui, id ) {
+                                        updateState(this.id, ui.value);
+                                        }
+                                    );
+
+                                    $().data('mmapData', { offset: offset })
+
+                                    $("#" + pName).width(200);
+
+                                // var li = document.createElement('li');
+                                // var list = document.getElementById('otherParams');
+
+                                // li.innerHTML = ("Parameter: " + pName + " Type: " + type);
+                                // list.appendChild(li);
+
+                                // var chatMessages = document.querySelector('#otherParams');
+                                // chatMessages.scrollTop = chatMessages.scrollHeight - chatMessages.clientHeight;
+                                break;
+
+                            case "unusedParams":
+                                console.log("parameter types found but not used: " + arg)
+                                
+                                break;
+                            }
+
+                        // }
+                    })
+
+
+
+
+                    default:
+                        // meh
+                        break;
+                    }
+        
+                } else {
+                }
+            }
+        };
+    ws.onerror = function() {
+        log('error');
+    };
+}
+
+function closeSocket() {
+    ws.close();
+}
+
+// keep checking socket status, re-open if closed:
+setInterval(function(){
+        if (!ws || ws.readyState === WebSocket.CLOSED) openSocket();
+}, 2000);
+
+// fill the codemirror instance with state.h code
+function stateH(stateCode) {
+    if (value == null) return;
+    var target = document.getElementById("stateh_source");
+    target.innerHTML = "";
+    dv = CodeMirror(target, {
+        value: stateCode,
+        styleActiveLine: true,
+        lineNumbers: true,
+        mode: "clike",
+        theme: 'one-dark',
+        readOnly: false,
+        //NOTE: viewportMargin, when set to 'infinity', allows for full text searching, BUT when set to a high number seems to have been the source of the sluggishness in the client app!! so now its only at 10. 
+        viewportMargin: 10,
+        revertButtons: true,
+        allowEditingOriginals: true,
+        linewrapping: true,
+        undoDepth: 200,
+        cursorBlinkRate: 300,
+        cursorScrollMargin: 0,                   
+    });
+    dv.setSize("100%", 550);
+}
+
+// write new state.h to disk and commit changes
+$(function() {
+    $("#writeStateH").click( function()
+        {
+            //console.log(line)
+        writeStateH = {};
+
+        authorName = "Graham Wakefield"
+        authorEmail = "grrrwaaa@gmail.com"
+        newState = dv.getValue()
+
+        var commitMsg = prompt('Please provide a comment about your changes', 'reticulating splines')
+        writeStateH = {authorName, authorEmail, newState, commitMsg}
+        ws.send('state.h_write?' + JSON.stringify(writeStateH))
+        console.log(writeStateH)           
+    });
+});
+
+function updateState(paramName, paramValue){
+
+// Update the state.bin server-side ///////////////////////
+//the server needs to know what type each parameter is so it can pass it to the correct buffer write
+var paramType;
+Object.keys(state).forEach(function(key, value) {
+    if (paramName === state[key].paramName) {
+        paramType = state[key].type
+    }                     
+})
+//update the state.bin server-side
+let stateUpdate = [];
+ws.send("stateUpdate?" + paramName + " " + paramValue + " " + paramType)
+
+// ///////////////////////////////////////////////////
+// provide line highlighting for in the codemirror editor so user can easily spot parameters 
+// in the state.h file:
+// get the begin-end lines of each parameter within the state.h!
+Object.keys(state).forEach(function(key, value) {
+    pName = state[key].paramName;
+    begin = state[key].begin - 1;
+    end = state[key].end;
+    // tell codemirror to highlight the chosen line
+    if (pName == paramName){
+        // if the parameter is different from previous change, highlight previously modified parameter as blue in the state.h
+        if (lastLine !== undefined && lastLine !== begin) {
+            dv.addLineClass(lastLine, 'background', 'cm-highlight-lastLine');
+        }
+        // if new parameter change, tell cm where to highlight
+        var t = dv.charCoords({line: begin, ch: 0}, "local").top; 
+        var middleHeight = dv.getScrollerElement().offsetHeight / 2; 
+        // focus the editor's page around the line
+        dv.scrollTo(null, t - middleHeight - 5);
+        // apply highlight to the selected parameter-line
+        dv.addLineClass(begin, 'background', 'cm-highlight');
+        // set the cm cursor to the line
+        dv.setCursor({line: begin, ch: window.lastpo});
+        // remember the current selected line for next time we change a param
+        lastLine = begin;
+    }
+}) 
+}
+
+//// clear highlights
+$(function() {
+$("#clearHighlights").click( function()
+    {
+    Object.keys(lines).forEach(function(key, value) {
+    console.log(lines[key].begin)
+    dv.removeLineClass(lines[key].begin, 'background');
+
+    });
+});
+
+})
+
+
+</script>
+
+
+</body>
+</html>

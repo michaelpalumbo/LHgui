@@ -35,7 +35,7 @@ document.domain = document.domain;
         <div id="3d-graph"></div>
     </div> -->
     <div id="tab1" class="tab">
-        <iframe src="state.html" height="100%" width="100%"></iframe>
+        <iframe src="code.html" height="100%" width="100%"></iframe>
     </div>
     <div id="tab2" class="tab">
         <iframe src="http://localhost:8088/terminal" height="100%" width="100%"></iframe>
@@ -55,10 +55,10 @@ var config = {
         name: 'tabs',
         active: 'tab1',
         tabs: [
-            { id: 'tab1', caption: 'State' },
+            { id: 'tab1', caption: 'Code' },
             { id: 'tab2', caption: 'Terminal' },
             // { id: 'tab3', caption: 'Commit Board' },
-            { id: 'tab3', caption: 'Config?' },
+            { id: 'tab3', caption: 'State' },
         ],
         onClick: function (event) {
             $('#tab-example .tab').hide();

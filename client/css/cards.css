@@ -1,0 +1,58 @@
+.card {
+
+    /* width: 100%;
+    height: 100px; */
+    border: 1px solid black;
+    box-shadow: 2px 3px 3px gray;
+    border-radius: 3px;
+    background: rgba(201, 194, 194, 0.116);
+
+
+}
+
+.frame {
+    /* text-align: center; */
+
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
+    box-shadow: 2px 3px 3px gray;
+    border-radius: 3px;
+    background: rgb(13, 40, 116);
+
+
+}
+
+table, th, td {
+    border: 1px solid black;
+    table-layout: fixed
+ }
+
+h3 { text-decoration: none }
+
+/* .CodeMirror {
+    width: 100% !important;
+    height: 100% !important;
+}  */
+
+/* .CodeMirror { width: 100%; }
+.CodeMirror-scroll { height: 500px; } */
+/* tr:hover {
+    background-color: #f5f5f5;
+} */
+
+/* colour palettes: http://www.color-hex.com/color-palette/61389
+#7c5421	(124,84,33)
+#4d3414	(77,52,20)
+#19334f	(25,51,79)
+#ff1a1a	(255,26,26)
+#f5f621	(245,246,33)
+ */
+
+ /* colour palette 2: http://www.color-hex.com/color-palette/61336
+ #daeef4	(218,238,244)
+#ec6249	(236,98,73)
+#112b36	(17,43,54)
+#eec239	(238,194,57)
+#b3d7df	(179,215,223) */
+

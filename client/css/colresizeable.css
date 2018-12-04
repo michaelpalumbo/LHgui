@@ -1,0 +1,22 @@
+th {
+	/* background-image:url(../img/th.png); */
+	height:30px;
+	background-repeat:no-repeat;
+	/* color:#FFF;
+	text-shadow:#012b4d 2px 2px 2px; */
+	text-align:center}
+
+td {
+	text-indent:5px;
+	color:#444;
+	border-bottom:1px solid #bbb;
+	border-left:1px solid #bbb}
+
+td.left {
+	border-left:1px solid #2e638e}
+
+td.right {
+	border-right:1px solid #2e638e}
+
+td.bottom {
+	border-bottom:1px solid #2e638e}
