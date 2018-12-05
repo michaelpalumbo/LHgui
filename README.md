@@ -8,7 +8,8 @@ gui / interface for lasg/pbai workshop2018...
 
 
 #todo
-- place "*' next to files currently opened?
-  - allow viewing currently opened files, but prevent others from editing these (make these read-only in codemirror)
+DONE  - allow viewing currently opened files, but prevent others from editing these (make these read-only in codemirror)
+
+- need to free up a file if a client isn't using it anymore
 
 webRTC notify all clients with other clients' activity

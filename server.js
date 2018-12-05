@@ -26,154 +26,6 @@ var script = path.join(project_path, 'LuddyLaptopMaster.py')
 // global for python script process ID
 var MasterLaptopPID
 console.log('=*=*=*=*=*=\nThis machine\'s public IP is ' + ip.address() + '\n*=*=*=*=*=*=')
-/*
-switch (process.argv[2]){
-  case "run":
-
-        const masterLaptop = spawn('python3', [script]);
-        const MasterLaptopPID = masterLaptop.pid
-        console.log('\niperf pid', MasterLaptopPID)
-        console.log('\n=*=*=*=*=*=*=*=*=*=*=*=*=*=\nIMPORTANT: \nplease type "end" + Enter, instead of "crtl-c" to exit this script!\n=*=*=*=*=*=*=*=*=*=*=*=*=*=\n' )
-        // use this to exit the script using 'end'.
-        shell
-        .command('quit', 'Outputs "closing server session".')
-        .action(function(args, callback) {
-            // ensure LuddyLaptopMaster.py stops running in background
-            exec('kill ' + MasterLaptopPID)
-            // exit script
-            console.log(`exiting... wait a few seconds\n\nstopping pid ${MasterLaptopPID}`);
-            setTimeout(function(){
-            console.log(`\n\npid kill ${MasterLaptopPID} complete\n`);
-            process.exit()
-        }, 2000);
-
-        });
-        // show masterLaptop shell cmd
-        shell
-        .delimiter('masterLaptop$')
-        .show();
-
-        shell
-        .command('stop', 'Outputs "stopping luddyLaptopMaster.py".')
-        .action(function(args, callback) {
-            // ensure LuddyLaptopMaster.py stops running in background
-            exec('kill ' + MasterLaptopPID)
-            // exit script
-            console.log(`exiting... wait a few seconds\n\nstopping pid ${MasterLaptopPID}`);
-            setTimeout(function(){
-            console.log(`\n\npid kill ${MasterLaptopPID} complete\n`);
-        }, 2000);
-
-        });
-        // show masterLaptop shell cmd
-        shell
-        .delimiter('masterLaptop$')
-        .show();
-
-        
-        masterLaptop.stdout.on('data', (data) => {
-            console.log(`stdout: ${data}`);
-        });
-      
-        masterLaptop.stderr.on('data', (data) => {
-            console.log(`stderr: ${data}`);
-        
-        });
-        
-        masterLaptop.on('close', (code) => {
-            console.log(`child process exited with code ${code}`);
-        });
-  break;
-
-  default: console.log('\n\nserver started without running LuddyLaptopMaster.py\n\n')
-}
-
-*/
-
-        // console.log('\n=*=*=*=*=*=*=*=*=*=*=*=*=*=\nIMPORTANT: \nplease type "end" + Enter, instead of "crtl-c" to exit this script!\n=*=*=*=*=*=*=*=*=*=*=*=*=*=\n' )
-        // // use this to exit the script using 'end'.
-        // shell
-        // .command('quit', 'Outputs "closing server session".')
-        // .action(function(args, callback) {
-        //     // ensure LuddyLaptopMaster.py stops running in background
-        //     exec('kill ' + MasterLaptopPID)
-        //     // exit script
-        //     console.log(`exiting... wait a few seconds\n\nstopping pid ${MasterLaptopPID}`);
-        //     setTimeout(function(){
-        //     console.log(`\n\npid kill ${MasterLaptopPID} complete\n`);
-        //     process.exit()
-        // }, 2000);
-
-        // });
-        // // show masterLaptop shell cmd
-        // shell
-        // .delimiter('masterLaptop$')
-        // .show();
-
-        // shell
-        // .command('stop', 'Outputs "stopping luddyLaptopMaster.py".')
-        // .action(function(args, callback) {
-        //     // ensure LuddyLaptopMaster.py stops running in background
-        //     exec('kill ' + MasterLaptopPID)
-        //     // exit script
-        //     console.log(`exiting... wait a few seconds\n\nstopping pid ${MasterLaptopPID}`);
-        //     setTimeout(function(){
-        //     console.log(`\n\npid kill ${MasterLaptopPID} complete\n`);
-        // }, 2000);
-
-        // });
-
-        // // show masterLaptop shell cmd
-        // shell
-        // .delimiter('masterLaptop$')
-        // .show();
-
-        // shell
-        // .command('run', 'Outputs "starting luddyLaptopMaster.py".')
-        // .action(function(args, callback) {
-        //     // ensure LuddyLaptopMaster.py stops running in background
-        //     // exec('kill ' + MasterLaptopPID)
-        //     // exit script
-
-        //   const masterLaptop = spawn('python3', [script]);
-        //   const MasterLaptopPID = masterLaptop.pid
-        //   console.log('\python script pid', MasterLaptopPID)
-          
-        //   masterLaptop.stdout.on('data', (data) => {
-        //       console.log(`stdout: ${data}`);
-        //   });
-        
-        //   masterLaptop.stderr.on('data', (data) => {
-        //     console.log(`stderr: ${data}`);
-        //       // show masterLaptop shell cmd
-        //     shell
-        //     .delimiter('masterLaptop$')
-        //     .show();
-            
-        //     }), 1000;
-              
-        //   masterLaptop.on('close', (code) => {
-        //     console.log(`child process exited with code ${code}`);
-        //   });                  
-
-        //   masterLaptop.on('close', (code) => {
-        //     console.log(`child process exited with code ${code}`);
-        //   });
-
-        //   });
-        // // show masterLaptop shell cmd
-        // shell
-        // .delimiter('masterLaptop$')
-        // .show();
-
-// var sourceFile = 'LuddyLaptopMaster.py'
-
-// var sourceCode = fs.readFileSync(path.join(project_path, sourceFile), 'utf-8')
-// //console.log(sourceCode)
-// console.log('source code from ', sourceFile, ' loaded!')
-//  sourceCode = JSON.stringify(sourceCode)
-// console.log(JSON.stringify(sourceCode))
-
 
 let sessionId = 0;
 let sessions = [];
@@ -325,6 +177,18 @@ function handleMessage(msg, session) {
 	
 	switch (msg.type) {
 
+    case "freeFilename":
+    console.log(filesOpen)
+    lodash.pull(filesOpen, msg.filename)
+    console.log(filesOpen)
+    send_all_clients(JSON.stringify({
+      session: session.id,
+      date: Date.now(),
+      type: "filesInUse",
+      value: filesOpen,
+      // filesOpen: filesOpen
+    }))
+
     case "update":
       console.log(msg.message, msg.sourceCode)
       fs.writeFileSync(script, msg.sourceCode)
@@ -368,13 +232,43 @@ function handleMessage(msg, session) {
           // filesOpen: filesOpen
         }));
 
-        session.socket.send(JSON.stringify({
+        send_all_clients(JSON.stringify({
           session: session.id,
           date: Date.now(),
           type: "filesInUse",
           value: filesOpen,
           // filesOpen: filesOpen
-        }));
+        }))
+    break;
+
+    case 'getFileReadOnly':
+
+    console.log(msg.filename)
+    //console.log(SessionID)
+    // check if file is currently in use by another editor:
+    
+    sourceCode = fs.readFileSync(path.join(msg.filename), 'utf-8')
+    //console.log(sourceCode)
+    console.log('source code from ', msg.filename, ' loaded!')
+    sourceCode = JSON.stringify(sourceCode)
+
+    // function sendSource(ast, session) {
+      session.socket.send(JSON.stringify({
+        session: session.id,
+        date: Date.now(),
+        type: "sourceRead-Only",
+        value: sourceCode,
+        // filesOpen: filesOpen
+      }));
+
+      // session.socket.send(JSON.stringify({
+      //   session: session.id,
+      //   date: Date.now(),
+      //   type: "filesInUse",
+      //   value: filesOpen,
+      //   // filesOpen: filesOpen
+      // }));
+
     break;
 
 

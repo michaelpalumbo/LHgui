@@ -91,20 +91,21 @@ rgb(199, 0, 57) --> */
 } */
 </style>
 
-
 <button id="writesourceCode">Save</button>
 <button id="clearHighlights">Clear Highlighting</button>
 <div id="source" height="80%"></div> 
 
 <table>
-  <td>
+  <td width="55%">
       <select size="10" style="width:100%; overflow: scroll;" id="openFileName" onchange="chooseFileName();">
           <option selected disabled>Please Select File</option> 
-          <option value="New File...">New File...</option>        
+          <option value="New File...">New File... (not ready yet...)</option>        
       </select> 
   </td>
-  <td>
-      <select size="10" style="width:100%; overflow: scroll;" id="filesInUse" onchange="nothing();">
+  <td width="35%">
+      <select size="10" style="width:100%; overflow: scroll;" id="filesInUse" onchange="chooseFileName();">
+          <option selected disabled>Files in use by other clients</option> 
+
       
       </select> 
   </td>
@@ -116,17 +117,44 @@ rgb(199, 0, 57) --> */
 
 <script>
 var filesOpen = ['empty'];
+var fileName;
   // file selection
 function chooseFileName () {
+    // before switching files, prompt to save (if dirty) and then tell server to free your current one
+    ws.send(JSON.stringify({
+    type: "freeFilename",
+    date: Date.now(),
+    filename: fileName
+  }));
+
   var e = document.getElementById('openFileName')
   var selection = e.options[e.selectedIndex].value
+
   fileName = selection
   console.log(fileName)
   console.log
 
+
+
   if (filesOpen.includes(fileName)){
     //don't allow opening this file for now. 
     // to do: open file in codemirror in read-only mode!
+
+    if (confirm('Selected file being edited by another client, open in read-only?')) {
+    // Save it!
+        // file is free, request it!
+        ws.send(JSON.stringify({
+        type: "getFileReadOnly",
+        date: Date.now(),
+        filename: fileName
+  }));
+    document.getElementById('writesourceCode').style.visibility='hidden';
+    document.getElementById('clearHighlights').style.visibility='hidden';
+
+
+} else {
+    // Do nothing!
+}
   } else{
     // file is free, request it!
     ws.send(JSON.stringify({
@@ -134,6 +162,9 @@ function chooseFileName () {
 		date: Date.now(),
 		filename: fileName
   }));
+  document.getElementById('writesourceCode').style.visibility='visible';
+    document.getElementById('clearHighlights').style.visibility='visible';
+
   }
 
 
@@ -237,7 +268,9 @@ function handleMessage(msg) {
 	switch (msg.type) {
 
     case "filesInUse":
-    filesOpen = msg.filesOpen
+    filesOpen = msg.value
+    console.log(filesOpen)
+    document.getElementById('filesInUse').options.length = 1;
     var sel = document.getElementById('filesInUse')
     // var length = select;
 
@@ -250,8 +283,8 @@ function handleMessage(msg) {
       // let fileInUse = key.file
       console.log(key, value)
       var opt = document.createElement('option')
-      opt.appendChild(document.createTextNode(value))
-      opt.value = value
+      opt.appendChild(document.createTextNode(key))
+      opt.value = key
       sel.appendChild(opt)
     })
 
@@ -260,10 +293,16 @@ function handleMessage(msg) {
     case "source":
 
     sourceCode = JSON.parse(msg.value)
-    stateCode(sourceCode)
+    // set codemirror code with read-only set to false
+    stateCode(sourceCode, 'false')
     // console.log(msg.filesOpen)
 
+    case "sourceRead-Only":
 
+    sourceCode = JSON.parse(msg.value)
+    // set codemirror code with read-only set to true
+    stateCode(sourceCode, 'true')
+    // console.log(msg.filesOpen)
 
     break;
 
@@ -309,7 +348,7 @@ function handleMessage(msg) {
 // }
 
 // fill the codemirror instance with source code
-function stateCode(stateCode) {
+function stateCode(stateCode, readOnly) {
     // if (stateCode == null);
     var target = document.getElementById("source");
     target.innerHTML = "";
@@ -319,7 +358,7 @@ function stateCode(stateCode) {
         lineNumbers: true,
         mode: "python",
         theme: 'one-dark',
-        readOnly: false,
+        readOnly: readOnly,
         //NOTE: viewportMargin, when set to 'infinity', allows for full text searching, BUT when set to a high number seems to have been the source of the sluggishness in the client app!! so now its only at 10. 
         viewportMargin: 10,
         revertButtons: true,
@@ -332,17 +371,17 @@ function stateCode(stateCode) {
     dv.setSize("100%", 550);
 }
 
-jQuery(document).keydown(function(event) {
-        // If Control or Command key is pressed and the S key is pressed
-        // run save function. 83 is the key code for S.
-        if((event.ctrlKey || event.metaKey) && event.which == 83) {
-            // Save Function
-            event.preventDefault();
-            writeSourceCode();
-            return false;
-        }
-    }
-);
+// jQuery(document).keydown(function(event) {
+//         // If Control or Command key is pressed and the S key is pressed
+//         // run save function. 83 is the key code for S.
+//         if((event.ctrlKey || event.metaKey) && event.which == 83) {
+//             // Save Function
+//             event.preventDefault();
+//             writeSourceCode();
+//             return false;
+//         }
+//     }
+// );
 
 // write new state.h to disk and commit changes
 $(function() {
