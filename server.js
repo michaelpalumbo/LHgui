@@ -21,7 +21,7 @@ console.log("project_path", project_path);
 console.log("server_path", server_path);
 console.log("client_path", client_path);
 
-var script = path.join(project_path, 'LuddyLaptopMaster.py')
+// var script = path.join(project_path, 'LuddyLaptopMaster.py')
 
 // global for python script process ID
 var MasterLaptopPID
@@ -67,7 +67,6 @@ wss.on('connection', function(ws, req) {
 	sessions[session.id] = session;
 	console.log("server received a connection, new session " + session.id);
   console.log("server has "+wss.clients.size+" connected clients");
-  
   session.socket.send(JSON.stringify({
     session: session.id,
     date: Date.now(),
@@ -121,7 +120,12 @@ wss.on('connection', function(ws, req) {
 	// what to do if client disconnects?
 	ws.on('close', function(connection) {
 		console.log("session", session.id, "connection closed");
-		delete sessions[session.id];
+    delete sessions[session.id];
+    console.log('\n\n\nnum sessions = ' + wss.clients.size)
+    if (wss.clients.size === 0){
+      //clean up filesOpen list if all clients close...
+      filesOpen = [];
+    }
 	});
 	
 	// respond to any messages from the client:
@@ -178,6 +182,7 @@ function handleMessage(msg, session) {
 	switch (msg.type) {
 
     case "freeFilename":
+    console.log("\n\nnum sessions: " + sessions)
     console.log(filesOpen)
     lodash.pull(filesOpen, msg.filename)
     console.log(filesOpen)
@@ -186,36 +191,25 @@ function handleMessage(msg, session) {
       date: Date.now(),
       type: "filesInUse",
       value: filesOpen,
-      // filesOpen: filesOpen
     }))
 
+    break;
+
     case "update":
-      console.log(msg.message, msg.sourceCode)
-      fs.writeFileSync(script, msg.sourceCode)
+      console.log('\n\nsteve\n\n' + msg.message, msg.filename, msg.sourceCode)
+
+      fs.writeFileSync(msg.filename, msg.sourceCode)
     break;
 
     case "getFile":
       console.log(msg.filename)
       //console.log(SessionID)
       // check if file is currently in use by another editor:
-      if (lodash.some(filesOpen, msg.filename)
-
-      ) {
-        //In the array!
-        console.log('in the array')
-        // lodash.chain(filesOpen)
-        // .find({id: sessionId})
-        // .merge({file: msg.filename});
-        // console.log(filesOpen)
-
+      if (lodash.some(filesOpen, msg.filename)) {
+        // if currently in use don't add it again to the array...
     } else {
-        console.log('Not in the array')
-
+        // if not in use, add filename to array
         filesOpen.push(msg.filename)
-        // lodash.chain(filesOpen)
-        // .find({id: sessionId})
-        // .merge({file: msg.filename});
-        console.log(filesOpen)
     }     
       
       sourceCode = fs.readFileSync(path.join(msg.filename), 'utf-8')

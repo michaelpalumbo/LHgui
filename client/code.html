@@ -4,11 +4,9 @@
 <title>LSGUI Code Editor</title>
 
 <head>
-<!-- //TEMPORARY: just to aid in development workflow -->
-<!-- <meta http-equiv="refresh" content="5; URL=http://localhost:8080"> -->
+
 <!--        SOURCES         -->
-<!-- Codemirror -->
-    <!-- styles -->
+
 
     <link rel=stylesheet href="cm/docs.css">
     <link rel=stylesheet href="cm/codemirror.css">
@@ -116,76 +114,7 @@ rgb(199, 0, 57) --> */
 <!-- <iframe id="listClosedFiles" width="50%" height="30%"></iframe> -->
 
 <script>
-var filesOpen = ['empty'];
-var fileName;
-  // file selection
-function chooseFileName () {
-    // before switching files, prompt to save (if dirty) and then tell server to free your current one
-    ws.send(JSON.stringify({
-    type: "freeFilename",
-    date: Date.now(),
-    filename: fileName
-  }));
 
-  var e = document.getElementById('openFileName')
-  var selection = e.options[e.selectedIndex].value
-
-  fileName = selection
-  console.log(fileName)
-  console.log
-
-
-
-  if (filesOpen.includes(fileName)){
-    //don't allow opening this file for now. 
-    // to do: open file in codemirror in read-only mode!
-
-    if (confirm('Selected file being edited by another client, open in read-only?')) {
-    // Save it!
-        // file is free, request it!
-        ws.send(JSON.stringify({
-        type: "getFileReadOnly",
-        date: Date.now(),
-        filename: fileName
-  }));
-    document.getElementById('writesourceCode').style.visibility='hidden';
-    document.getElementById('clearHighlights').style.visibility='hidden';
-
-
-} else {
-    // Do nothing!
-}
-  } else{
-    // file is free, request it!
-    ws.send(JSON.stringify({
-		type: "getFile",
-		date: Date.now(),
-		filename: fileName
-  }));
-  document.getElementById('writesourceCode').style.visibility='visible';
-    document.getElementById('clearHighlights').style.visibility='visible';
-
-  }
-
-
-  // clear the commits list in the select element each time a file is opened
-  // function removeOptions (selectbox) {
-  //   var i
-  //   for (i = selectCommit.options.length - 1; i >= 0; i--) {
-  //     selectCommit.remove(i)
-  //   }
-  // }
-  // removeOptions(document.getElementById('selectCommit'))
-  // fileInCommit.innerHTML = (selection + ' found in following commits')
-
-  // if (selection === 'New File...') {
-  //   alert('Client not set up to create new file yet, work-in-progress')
-  // } else {
-  //   ws.send('fileRequest' + selection)
-  //   // change page title to filename!
-  //   document.title = selection
-  // }
-}
   var Host = location.host.substr(0, location.host.indexOf(':'));
   // Host = location.host.substr(location.host.indexOf('//'));
 // document.getElementById('listClosedFiles').src = Host + ':8089';
@@ -200,6 +129,7 @@ var ws_url = "ws://" + window.location.host;
 var state = [];
 var lines = []
 var lastLine;
+var editorIsDirty;
 
 
 // document.getElementById('server').value = ws_url;
@@ -263,13 +193,11 @@ ws_connect({
 	},
 });
 
-var cppSource; // this must be global
 function handleMessage(msg) {
 	switch (msg.type) {
 
     case "filesInUse":
     filesOpen = msg.value
-    console.log(filesOpen)
     document.getElementById('filesInUse').options.length = 1;
     var sel = document.getElementById('filesInUse')
     // var length = select;
@@ -281,7 +209,6 @@ function handleMessage(msg) {
     Object.values(filesOpen).forEach(function (key, value) {
       // let user = key.id
       // let fileInUse = key.file
-      console.log(key, value)
       var opt = document.createElement('option')
       opt.appendChild(document.createTextNode(key))
       opt.value = key
@@ -294,20 +221,23 @@ function handleMessage(msg) {
 
     sourceCode = JSON.parse(msg.value)
     // set codemirror code with read-only set to false
-    stateCode(sourceCode, 'false')
+    editorIsDirty = false;
+    stateCode(sourceCode, false)
+
+    // dv.setOption("readOnly", false)
     // console.log(msg.filesOpen)
-
+    break;
     case "sourceRead-Only":
-
+    editorIsDirty = false;
     sourceCode = JSON.parse(msg.value)
     // set codemirror code with read-only set to true
-    stateCode(sourceCode, 'true')
+    stateCode(sourceCode, true)
+    // dv.setOption("readOnly", true)
     // console.log(msg.filesOpen)
 
     break;
 
     case "files":
-    console.log(msg.value)
 
     var sel = document.getElementById('openFileName')
             // var length = select;
@@ -333,6 +263,81 @@ function handleMessage(msg) {
 	}
 }
 
+var filesOpen = ['empty'];
+var fileName;
+var readOnly = false;
+  // file selection
+function chooseFileName () {
+    // before switching files, prompt to save (if dirty) and then tell server to free your current one
+    
+    // free the currently loaded file name only if its not in readonly mode
+    if (readOnly === false){
+      // has user changed the code?
+      if (editorIsDirty == true){
+        // ask if they want to save their changes
+        if (confirm('save file before switching?')) {
+
+          newSource = dv.getValue()
+          console.log(newSource)
+
+          var changeMsg = prompt('Please provide a comment about your changes', 'reticulating splines')
+
+          //save file
+          ws.send(JSON.stringify({
+            type: "update",
+            date: Date.now(),
+            sourceCode: newSource,
+            filename: fileName,
+            message: changeMsg
+          }));
+
+          // free the filename in the opened files list
+          ws.send(JSON.stringify({
+          type: "freeFilename",
+          date: Date.now(),
+          filename: fileName
+        }));
+      } 
+
+    } 
+  }
+
+  var e = document.getElementById('openFileName')
+  var selection = e.options[e.selectedIndex].value
+
+  fileName = selection
+  console.log(fileName)
+
+  if (filesOpen.includes(fileName)){
+
+    if (confirm('Selected file being edited by another client, open in read-only?')) {
+    // Save it!
+        // file is free, request it!
+        readOnly = true;
+        ws.send(JSON.stringify({
+        type: "getFileReadOnly",
+        date: Date.now(),
+        filename: fileName
+  }));
+    document.getElementById('writesourceCode').style.visibility='hidden';
+    document.getElementById('clearHighlights').style.visibility='hidden';
+
+
+} else {
+    // Do nothing!
+}
+  } else{
+    // file is free, request it!
+    ws.send(JSON.stringify({
+		type: "getFile",
+		date: Date.now(),
+		filename: fileName
+  }));
+  document.getElementById('writesourceCode').style.visibility='visible';
+  document.getElementById('clearHighlights').style.visibility='visible';
+
+  }
+}
 // function selectHash(select){
 // 	e = document.getElementById(select)
 //   var hash = e.options[e.selectedIndex].value
@@ -348,7 +353,8 @@ function handleMessage(msg) {
 // }
 
 // fill the codemirror instance with source code
-function stateCode(stateCode, readOnly) {
+function stateCode(stateCode, writeable) {
+  editorIsDirty = false;
     // if (stateCode == null);
     var target = document.getElementById("source");
     target.innerHTML = "";
@@ -358,7 +364,7 @@ function stateCode(stateCode, readOnly) {
         lineNumbers: true,
         mode: "python",
         theme: 'one-dark',
-        readOnly: readOnly,
+        readOnly: writeable,
         //NOTE: viewportMargin, when set to 'infinity', allows for full text searching, BUT when set to a high number seems to have been the source of the sluggishness in the client app!! so now its only at 10. 
         viewportMargin: 10,
         revertButtons: true,
@@ -369,7 +375,12 @@ function stateCode(stateCode, readOnly) {
         cursorScrollMargin: 0,                   
     });
     dv.setSize("100%", 550);
+    dv.on('keypress', function (dv, changeObj) {
+      editorIsDirty = true;
+})
 }
+
+
 
 // jQuery(document).keydown(function(event) {
 //         // If Control or Command key is pressed and the S key is pressed
@@ -394,41 +405,20 @@ $(function() {
 
 function writeSourceCode()
         {
-            //console.log(line)
-        writesourceCode = {};
-
-        // authorName = "Graham Wakefield"
-        // authorEmail = "grrrwaaa@gmail.com"
         newSource = dv.getValue()
 
         var changeMsg = prompt('Please provide a comment about your changes', 'reticulating splines')
-        // writesourceCode = {newSource, changeMsg}
-        // ws.send('updateCode' + JSON.stringify(writesourceCode))
 
         ws.send(JSON.stringify({
           type: "update",
           date: Date.now(),
           sourceCode: newSource,
-          message: changeMsg
+          message: changeMsg,
+          filename: fileName
         }));
 
-        // console.log(writesourceCode)           
     }
 /*
-function updateState(paramName, paramValue){
-
-// Update the state.bin server-side ///////////////////////
-//the server needs to know what type each parameter is so it can pass it to the correct buffer write
-var paramType;
-Object.keys(state).forEach(function(key, value) {
-    if (paramName === state[key].paramName) {
-        paramType = state[key].type
-    }                     
-})
-//update the state.bin server-side
-let stateUpdate = [];
-ws.send("stateUpdate?" + paramName + " " + paramValue + " " + paramType)
-
 // ///////////////////////////////////////////////////
 // provide line highlighting for in the codemirror editor so user can easily spot parameters 
 // in the state.h file:
