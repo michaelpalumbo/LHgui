@@ -38,7 +38,7 @@ document.domain = document.domain;
         <iframe src="code.html" height="100%" width="100%"></iframe>
     </div>
     <div id="tab2" class="tab">
-        <iframe src="http://localhost:8088/terminal" height="100%" width="100%"></iframe>
+        <iframe src="http://localhost:8080/terminal.html" height="100%" width="100%"></iframe>
     </div>
     <!-- <div id="tab3" class="tab">
         <iframe src="http://localhost:3000" height="100%" width="100%"></iframe>
@@ -100,6 +100,7 @@ function openTerminal () {
 
   //   }, 2000);
 }
+/* 
 openSocket();
 function openSocket() {
     
@@ -108,14 +109,6 @@ function openSocket() {
     ws.binaryType = 'arraybuffer';
     ws.onopen = function() {
         ws.send("connected")
-        //w
-        // log('open');     
-        // ws.send("client_SVG?")
-
-        // ws.send("getCurrentBranch")
-        
-        // //temporary: for now set user as Guest so I don't have to keep choosing user while developing. 
-        // ws.send("selectUser?" + "Guest");
         
         sessionStorage.echoServer = url;
     };
@@ -123,13 +116,7 @@ function openSocket() {
         // log('close');
     };
     ws.onmessage = function(e) {
-        /*if (e.data instanceof Blob) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                log('received blob: ' + encodeHexString(new Uint8Array(e.target.result)));
-            };
-            reader.readAsArrayBuffer(e.data);
-        } else */
+       
         if (e.data instanceof ArrayBuffer) {
             //log(encodeHexString(new Uint8Array(e.data)));
             //log("received arraybuffer size: " + e.data.byteLength + " bytes");
@@ -140,17 +127,6 @@ function openSocket() {
                 s += "<li>" + (i/3 + ": { " + fv[i] + ", " + fv[i+1] + ", " + fv[i+2] + " }</li>");
             }
             
-            // document.getElementById('state').innerHTML = s;     
-            // git yer life together
-            // gitTFO
-            // git over yourself
-            // git your ouevre together
-            // git me a sangwich
-            // sudo git me a sandwich, please
-            // git with the program
-            // git outta my office
-            // how about i give you the finger: ..|.. and you git me my phone call
-            // 
         } else {
             let message = e.data;
             let q = message.indexOf("?");
@@ -159,40 +135,12 @@ function openSocket() {
                 let arg = message.substring(q+1);
                 switch(cmd) {
 
-                    case "source": 
-                    let source = JSON.parse(arg)
-
-                    //let fileCount = (node.commit_files)
-                    //console.log("filecount " + fileCount)
-                    const elem = document.getElementById('3d-graph');
-                    const Graph = ForceGraph3D()(elem)
-                    // .jsonUrl('http://localhost:8080/blocks.json')
-                    .graphData(source)
-                    .nodeAutoColorBy('user')
-                    .nodeLabel(node => `${node.commit_date} - ${node.name}: ${node.commit_msg}`)
-                    .linkLabel(link => `${link.numfiles} files changed`)
-                    .onNodeHover(node => elem.style.cursor = node ? 'pointer' : null)
-                    .nodeVal(node => Math.min(Math.max(1, node.numFiles), maxVal))
-                    .nodeRelSize(1)
-                    .onNodeClick(node => window.open(`https://github.com/michaelpalumbo/gitShow/commit/${node.id}`, '_blank') && ws.send("clickedHash?" + node.id))
-                   /* .linkDirectionalArrowLength(5.5)
-                    .linkDirectionalArrowRelPos(0.5)
-                    .linkLabel(node => `${node.commit_date}`)
-                    .linkWidth(1)
-                    */
-                    //.linkCurvature(0.2)
-                    
-                    .linkCurvature(0.25)
-
-                    .linkWidth(link => Math.min(Math.max(1, link.numfiles), maxWidth))
-                    //.linkDirectionalParticles(node => `${node.commit_files.length - 1}`) //todo: can we get the number of particles on a link to correspond to the number of files in that commit?
-                    .linkDirectionalParticles(1)
-                    .linkDirectionalParticleSpeed(0.01)
-                    .linkDirectionalParticleWidth(1.2)
-                    .linkDirectionalParticleResolution(8);
+                    // case "source": 
+                    // let source = JSON.parse(arg)
 
 
-                    break;
+
+                    // break;
 
              
                     // case "state":
@@ -288,7 +236,7 @@ function closeSocket() {
 //         if (!ws || ws.readyState === WebSocket.CLOSED) openSocket();
 // }, 2000);
 
-
+*/
 
 
 

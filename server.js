@@ -10,53 +10,170 @@ const os = require("os");
 const { exec, execSync, spawn, spawnSync, fork } = require('child_process')
 const terminal = require("web-terminal");
 const ip = require('ip')
-// const vorpal = require('vorpal')();
-
-
+const shell = require('vorpal')();
 
 //process.chdir(process.argv[2] || ".");
-const project_path = path.join('../17540-Luddy-Hall/');
+const project_path = path.join(__dirname + '../../17540-Luddy-Hall/Master Laptop/');
 const server_path = __dirname;
 const client_path = path.join(server_path, "client");
 console.log("project_path", project_path);
 console.log("server_path", server_path);
 console.log("client_path", client_path);
 
-var sourceFile = 'LuddyLaptopMaster.py'
-console.log(sourceFile, ' loaded!')
+var script = path.join(project_path, 'LuddyLaptopMaster.py')
 
-var sourceCode = fs.readFileSync(path.join(__dirname, sourceFile), 'utf-8')
-console.log(sourceCode)
+// global for python script process ID
+var MasterLaptopPID
+console.log('=*=*=*=*=*=\nThis machine\'s public IP is ' + ip.address() + '\n*=*=*=*=*=*=')
+/*
+switch (process.argv[2]){
+  case "run":
+
+        const masterLaptop = spawn('python3', [script]);
+        const MasterLaptopPID = masterLaptop.pid
+        console.log('\niperf pid', MasterLaptopPID)
+        console.log('\n=*=*=*=*=*=*=*=*=*=*=*=*=*=\nIMPORTANT: \nplease type "end" + Enter, instead of "crtl-c" to exit this script!\n=*=*=*=*=*=*=*=*=*=*=*=*=*=\n' )
+        // use this to exit the script using 'end'.
+        shell
+        .command('quit', 'Outputs "closing server session".')
+        .action(function(args, callback) {
+            // ensure LuddyLaptopMaster.py stops running in background
+            exec('kill ' + MasterLaptopPID)
+            // exit script
+            console.log(`exiting... wait a few seconds\n\nstopping pid ${MasterLaptopPID}`);
+            setTimeout(function(){
+            console.log(`\n\npid kill ${MasterLaptopPID} complete\n`);
+            process.exit()
+        }, 2000);
+
+        });
+        // show masterLaptop shell cmd
+        shell
+        .delimiter('masterLaptop$')
+        .show();
+
+        shell
+        .command('stop', 'Outputs "stopping luddyLaptopMaster.py".')
+        .action(function(args, callback) {
+            // ensure LuddyLaptopMaster.py stops running in background
+            exec('kill ' + MasterLaptopPID)
+            // exit script
+            console.log(`exiting... wait a few seconds\n\nstopping pid ${MasterLaptopPID}`);
+            setTimeout(function(){
+            console.log(`\n\npid kill ${MasterLaptopPID} complete\n`);
+        }, 2000);
+
+        });
+        // show masterLaptop shell cmd
+        shell
+        .delimiter('masterLaptop$')
+        .show();
+
+        
+        masterLaptop.stdout.on('data', (data) => {
+            console.log(`stdout: ${data}`);
+        });
+      
+        masterLaptop.stderr.on('data', (data) => {
+            console.log(`stderr: ${data}`);
+        
+        });
+        
+        masterLaptop.on('close', (code) => {
+            console.log(`child process exited with code ${code}`);
+        });
+  break;
+
+  default: console.log('\n\nserver started without running LuddyLaptopMaster.py\n\n')
+}
+
+*/
+
+        // console.log('\n=*=*=*=*=*=*=*=*=*=*=*=*=*=\nIMPORTANT: \nplease type "end" + Enter, instead of "crtl-c" to exit this script!\n=*=*=*=*=*=*=*=*=*=*=*=*=*=\n' )
+        // // use this to exit the script using 'end'.
+        // shell
+        // .command('quit', 'Outputs "closing server session".')
+        // .action(function(args, callback) {
+        //     // ensure LuddyLaptopMaster.py stops running in background
+        //     exec('kill ' + MasterLaptopPID)
+        //     // exit script
+        //     console.log(`exiting... wait a few seconds\n\nstopping pid ${MasterLaptopPID}`);
+        //     setTimeout(function(){
+        //     console.log(`\n\npid kill ${MasterLaptopPID} complete\n`);
+        //     process.exit()
+        // }, 2000);
+
+        // });
+        // // show masterLaptop shell cmd
+        // shell
+        // .delimiter('masterLaptop$')
+        // .show();
+
+        // shell
+        // .command('stop', 'Outputs "stopping luddyLaptopMaster.py".')
+        // .action(function(args, callback) {
+        //     // ensure LuddyLaptopMaster.py stops running in background
+        //     exec('kill ' + MasterLaptopPID)
+        //     // exit script
+        //     console.log(`exiting... wait a few seconds\n\nstopping pid ${MasterLaptopPID}`);
+        //     setTimeout(function(){
+        //     console.log(`\n\npid kill ${MasterLaptopPID} complete\n`);
+        // }, 2000);
+
+        // });
+
+        // // show masterLaptop shell cmd
+        // shell
+        // .delimiter('masterLaptop$')
+        // .show();
+
+        // shell
+        // .command('run', 'Outputs "starting luddyLaptopMaster.py".')
+        // .action(function(args, callback) {
+        //     // ensure LuddyLaptopMaster.py stops running in background
+        //     // exec('kill ' + MasterLaptopPID)
+        //     // exit script
+
+        //   const masterLaptop = spawn('python3', [script]);
+        //   const MasterLaptopPID = masterLaptop.pid
+        //   console.log('\python script pid', MasterLaptopPID)
+          
+        //   masterLaptop.stdout.on('data', (data) => {
+        //       console.log(`stdout: ${data}`);
+        //   });
+        
+        //   masterLaptop.stderr.on('data', (data) => {
+        //     console.log(`stderr: ${data}`);
+        //       // show masterLaptop shell cmd
+        //     shell
+        //     .delimiter('masterLaptop$')
+        //     .show();
+            
+        //     }), 1000;
+              
+        //   masterLaptop.on('close', (code) => {
+        //     console.log(`child process exited with code ${code}`);
+        //   });                  
+
+        //   masterLaptop.on('close', (code) => {
+        //     console.log(`child process exited with code ${code}`);
+        //   });
+
+        //   });
+        // // show masterLaptop shell cmd
+        // shell
+        // .delimiter('masterLaptop$')
+        // .show();
+
+var sourceFile = 'LuddyLaptopMaster.py'
+
+var sourceCode = fs.readFileSync(path.join(project_path, sourceFile), 'utf-8')
+//console.log(sourceCode)
+console.log('source code from ', sourceFile, ' loaded!')
  sourceCode = JSON.stringify(sourceCode)
 // console.log(JSON.stringify(sourceCode))
 
 
-/*
-// vorpal CLI interaction
-// type 'end' to exit node (quit)
-vorpal
-  .command('end', 'Outputs "ending session".')
-  .action(function(args, callback) {
-    this.log('ending session please wait....');
-		callback();
-		process.exit();
-  });
-
-vorpal
-  .delimiter('cards$')
-	.show();
-
-vorpal
-  .command('help', 'Outputs "help".')
-  .action(function(args, callback) {
-    this.log('"\'end\' ---- stop cards server"');
-		callback();
-  });
-
-vorpal
-  .delimiter('cards$')
-  .show();
-*/
 let sessionId = 0;
 let sessions = [];
 
@@ -160,11 +277,10 @@ var terminalApp = http.createServer(function (req, res) {
   res.end("Hello World\n");
 });
 
-terminalApp.listen(1337);
-console.log("Server running at http://127.0.0.1:1337/");
+// terminalApp.listen(1337);
+// console.log("Server running at http://127.0.0.1:1337/");
 
 terminal(terminalApp);
-console.log('Web-terminal accessible at http://' + ip.address() + ':8088/terminal');
 
 
 ///////////////////// APP LOGIC /////////////////////
