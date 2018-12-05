@@ -91,26 +91,10 @@ rgb(199, 0, 57) --> */
 } */
 </style>
 
-<!-- containing table -->
-<table width="100%" height="100%">
-    <tr  height="5%" >
-        <th style="text-decoration: none">LHGUI Code Editor</th>
-        
-        <th>
-                <input id="server" type="text" value="ws://localhost:8080" size="40">
-                <button onclick="openSocket()">Open</button>
-                <button onclick="closeSocket()">Close</button>
-        </th>
-    </tr>
-    <tr>
-        <td>
-            <button id="writesourceCode">Save</button>
-            <button id="clearHighlights">Clear Highlighting</button>
-            <div id="source" height="100%"></div> 
-            </td>
-    </tr>
-</table>
 
+<button id="writesourceCode">Save</button>
+<button id="clearHighlights">Clear Highlighting</button>
+<div id="source" height="100%"></div> 
 <script>
 
 var bodySize = [document.body.clientWidth, document.body.clientHeight]
@@ -125,7 +109,7 @@ var lines = []
 var lastLine;
 
 
-document.getElementById('server').value = ws_url;
+// document.getElementById('server').value = ws_url;
 
 
 
@@ -304,23 +288,49 @@ function stateCode(stateCode) {
     dv.setSize("100%", 550);
 }
 
+jQuery(document).keydown(function(event) {
+        // If Control or Command key is pressed and the S key is pressed
+        // run save function. 83 is the key code for S.
+        if((event.ctrlKey || event.metaKey) && event.which == 83) {
+            // Save Function
+            event.preventDefault();
+            writeSourceCode();
+            return false;
+        }
+    }
+);
+
 // write new state.h to disk and commit changes
 $(function() {
-    $("#writesourceCode").click( function()
+    $("#writesourceCode").click(function(){
+      writeSourceCode()
+    });
+});
+
+// save
+
+function writeSourceCode()
         {
             //console.log(line)
         writesourceCode = {};
 
-        authorName = "Graham Wakefield"
-        authorEmail = "grrrwaaa@gmail.com"
-        newState = dv.getValue()
+        // authorName = "Graham Wakefield"
+        // authorEmail = "grrrwaaa@gmail.com"
+        newSource = dv.getValue()
 
-        var commitMsg = prompt('Please provide a comment about your changes', 'reticulating splines')
-        writesourceCode = {authorName, authorEmail, newState, commitMsg}
-        ws.send('source_write?' + JSON.stringify(writesourceCode))
-        console.log(writesourceCode)           
-    });
-});
+        var changeMsg = prompt('Please provide a comment about your changes', 'reticulating splines')
+        // writesourceCode = {newSource, changeMsg}
+        // ws.send('updateCode' + JSON.stringify(writesourceCode))
+
+        ws.send(JSON.stringify({
+          type: "update",
+          date: Date.now(),
+          sourceCode: newSource,
+          message: changeMsg
+        }));
+
+        // console.log(writesourceCode)           
+    }
 
 function updateState(paramName, paramValue){
 

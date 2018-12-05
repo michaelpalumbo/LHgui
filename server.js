@@ -286,22 +286,14 @@ terminal(terminalApp);
 ///////////////////// APP LOGIC /////////////////////
 
 
-
-// function update(ast, session) {
-// 	console.log(ast)
-// 	session.socket.send(JSON.stringify({
-// 		session: session.id,
-// 		date: Date.now(),
-// 		type: "update",
-// 		value: ast
-// 	}));
-// }
-
-
 function handleMessage(msg, session) {
 	
 	switch (msg.type) {
 
+    case "update":
+      console.log(msg.message, msg.sourceCode)
+      fs.writeFileSync(script, msg.sourceCode)
+    break
 		// case "get_source": {
 		// 	send_all_clients('source?',sourceCode)
 		// }
