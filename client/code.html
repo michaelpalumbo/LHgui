@@ -253,19 +253,6 @@ function chooseFileName () {
 
   }
 }
-// function selectHash(select){
-// 	e = document.getElementById(select)
-//   var hash = e.options[e.selectedIndex].value
-//   // console.log(selectedBranch)
-// 	//ws.send('selectedBranch?' + selectedBranch)
-// 	console.log(hash)
-// 	ws.send(JSON.stringify({
-// 		type: "show",
-// 		date: Date.now(),
-// 		hash: hash,
-// 		filename: filename
-// 	}));
-// }
 
 // fill the codemirror instance with source code
 function stateCode(stateCode, writeable) {
@@ -289,7 +276,7 @@ function stateCode(stateCode, writeable) {
         cursorBlinkRate: 300,
         cursorScrollMargin: 0,                   
     });
-    dv.setSize("100%", 550);
+    dv.setSize("100%", 650);
     dv.on('keypress', function (dv, changeObj) {
       editorIsDirty = true;
 })

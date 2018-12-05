@@ -31,6 +31,7 @@ let sessionId = 0;
 let sessions = [];
 // list which clients are editing a particular file:
 let filesOpen = [];
+let sessionData = {};
 
 const app = express();
 app.use(express.static(client_path))
@@ -64,7 +65,8 @@ wss.on('connection', function(ws, req) {
 		id: sessionId++,
 		socket: ws,
 	};
-	sessions[session.id] = session;
+  sessions[session.id] = session;
+  console.log(sessionData)
 	console.log("server received a connection, new session " + session.id);
   console.log("server has "+wss.clients.size+" connected clients");
   session.socket.send(JSON.stringify({
@@ -119,9 +121,14 @@ wss.on('connection', function(ws, req) {
 
 	// what to do if client disconnects?
 	ws.on('close', function(connection) {
-		console.log("session", session.id, "connection closed");
+    console.log("session", session.id, "connection closed");
+    // update the filesOpen array
+    // lodash.pull(filesOpen, sessionFilename)
+    delete sessionData[session.id];
     delete sessions[session.id];
+    console.log(sessionData)
     console.log('\n\n\nnum sessions = ' + wss.clients.size)
+
     if (wss.clients.size === 0){
       //clean up filesOpen list if all clients close...
       filesOpen = [];
@@ -207,6 +214,8 @@ function handleMessage(msg, session) {
     } else {
         // if not in use, add filename to array
         filesOpen.push(msg.filename)
+        sessionData[session.id] = msg.filename;
+        console.log(sessionData)
     }     
       
       sourceCode = fs.readFileSync(path.join(msg.filename), 'utf-8')
