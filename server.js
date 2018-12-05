@@ -189,7 +189,11 @@ const wss = new WebSocket.Server({ server });
 
 
 //////////////// file browser ///////////////////
-// exec(node + ' ' + _dirname + '/node_modules/file-browser/index.js -p 8089')
+//  exec('node ' + __dirname + '/node_modules/file-browser/index.js -p 8089', {cwp: '../../17540-Luddy-Hall'})
+
+var find = require('list-files');
+ 
+
 
 // send a (string) message to all connected clients:
 function send_all_clients(msg) {
@@ -221,6 +225,23 @@ wss.on('connection', function(ws, req) {
       value: sourceCode
     }));
   // }
+
+  find(function(result) {
+  
+    // console.log(result);
+    //=> './dirname/a.js'
+    //=> './dirname/b.js'
+    session.socket.send(JSON.stringify({
+      session: session.id,
+      date: Date.now(),
+      type: "files",
+      value: result
+    }));
+}, {
+    dir: '../17540-Luddy-Hall',
+    // name: 'js'
+    exclude: '*.git*'
+});
 	
 	const location = url.parse(req.url, true);
 	// You might use location.query.access_token to authenticate or share sessions
@@ -297,7 +318,24 @@ function handleMessage(msg, session) {
     case "update":
       console.log(msg.message, msg.sourceCode)
       fs.writeFileSync(script, msg.sourceCode)
-    break
+    break;
+
+    case "getFile":
+      console.log(msg.filename)
+      sourceCode = fs.readFileSync(path.join(msg.filename), 'utf-8')
+      //console.log(sourceCode)
+      console.log('source code from ', sourceFile, ' loaded!')
+      sourceCode = JSON.stringify(sourceCode)
+
+      // function sendSource(ast, session) {
+        session.socket.send(JSON.stringify({
+          session: session.id,
+          date: Date.now(),
+          type: "source",
+          value: sourceCode
+        }));
+    break;
+
 		// case "get_source": {
 		// 	send_all_clients('source?',sourceCode)
 		// }

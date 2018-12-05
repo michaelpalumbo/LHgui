@@ -94,45 +94,50 @@ rgb(199, 0, 57) --> */
 
 <button id="writesourceCode">Save</button>
 <button id="clearHighlights">Clear Highlighting</button>
-<div id="source" height="100%"></div> 
+<div id="source" height="80%"></div> 
 
-<table style="background-color: blue" width=100% id="fileSelector">  
-    <tr>
-        <th style="background-color:rgb(190, 190, 190); font-size: 14px; text-decoration: none; text-align: center;">
-            <b>Files not in Use</b>
-            <input type="text" id="search1" onkeyup='hideAndSeek("chooseClosedFile","search1");' placeholder="Search...">
-            <button onclick="newFile()" id="newFile">New File</button>
-        </th>
-        <th style="background-color:rgb(190, 190, 190); font-size: 14px; text-decoration: none; text-align: center;">
-            <b>Currently Open Files</b>
-            <input type="text" id="search2" onkeyup='hideAndSeek("openFileName", "search2");' placeholder="Search...">
-        </th>
-        <!-- <th style="background-color:rgb(190, 190, 190); font-size: 14px; text-decoration: none; text-align: center;">
-            <p id="fileInCommit"><p>    
-            <input type="text" id="search3" onkeyup='hideAndSeek("selectCommit", "search3");' placeholder="Search...">      
-        </th> -->
-    </tr>
-    <tr> 
-        <td style="width:33%; height:100%">
-            <div id="Branch">
-                <select style="width:100%; height:100%" name="branches" size="5" id="chooseClosedFile" onchange="chooseClosedFile();"> 
-                </select> 
-            </div>          
-        </td>
-        <td style="width:33%; height:100%; text-align:center;">
-            <select size="5" style="width:100%; overflow: scroll;" id="chooseOpenFile" onchange="chooseOpenFile();">
-                <option selected disabled>Please Select File</option> 
-                <option value="New File...">New File...</option>        
-            </select> 
-        </td>
-        <!-- <td style="width:33%; height:100%; text-align:center;">
-            <select style="width:100%; height:100%" name="Commitslist" size="5" id="selectCommit" onchange="chooseCommit();"> 
-            </select> 
-        </td> -->
-    </tr>
-</table>
+<select size="10" style="width:100%; overflow: scroll;" id="openFileName" onchange="chooseFileName();">
+    <option selected disabled>Please Select File</option> 
+    <option value="New File...">New File...</option>        
+</select> 
+
+<!-- <iframe id="listClosedFiles" width="50%" height="30%"></iframe> -->
 
 <script>
+
+  // file selection
+function chooseFileName () {
+  var e = document.getElementById('openFileName')
+  var selection = e.options[e.selectedIndex].value
+  fileName = selection
+  console.log(fileName)
+
+  ws.send(JSON.stringify({
+		type: "getFile",
+		date: Date.now(),
+		filename: fileName
+  }));
+
+  // clear the commits list in the select element each time a file is opened
+  // function removeOptions (selectbox) {
+  //   var i
+  //   for (i = selectCommit.options.length - 1; i >= 0; i--) {
+  //     selectCommit.remove(i)
+  //   }
+  // }
+  // removeOptions(document.getElementById('selectCommit'))
+  // fileInCommit.innerHTML = (selection + ' found in following commits')
+
+  // if (selection === 'New File...') {
+  //   alert('Client not set up to create new file yet, work-in-progress')
+  // } else {
+  //   ws.send('fileRequest' + selection)
+  //   // change page title to filename!
+  //   document.title = selection
+  // }
+}
+  var Host = "http://" + location.host.substr(0, location.host.indexOf(':'));
+// document.getElementById('listClosedFiles').src = Host + ':8089';
 
 var bodySize = [document.body.clientWidth, document.body.clientHeight]
 var ws_url;
@@ -215,6 +220,24 @@ function handleMessage(msg) {
 
     sourceCode = JSON.parse(msg.value)
     stateCode(sourceCode)
+
+    break;
+
+    case "files":
+    console.log(msg.value)
+
+    var sel = document.getElementById('openFileName')
+            // var length = select;
+
+            // for (i = 3; i < sel.length; i++) {
+            //     sel.options[i] = null;
+            //     }
+            Object.values(msg.value).forEach(function (key, value) {
+              var opt = document.createElement('option')
+              opt.appendChild(document.createTextNode(key))
+              opt.value = key
+              sel.appendChild(opt)
+            })
 
     break;
 /*
