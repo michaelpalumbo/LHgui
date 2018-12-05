@@ -207,13 +207,16 @@ function chooseFileName () {
 
     } 
   }
+  // this prevents freeing the filename when client is in read-only mode
+  if (readOnly === false){
+    // free the filename in the opened files list
+    ws.send(JSON.stringify({
+      type: "freeFilename",
+      date: Date.now(),
+      filename: fileName
+    }));
+  }
 
-  // free the filename in the opened files list
-  ws.send(JSON.stringify({
-    type: "freeFilename",
-    date: Date.now(),
-    filename: fileName
-  }));
   var e = document.getElementById('openFileName')
   var selection = e.options[e.selectedIndex].value
 

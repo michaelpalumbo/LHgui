@@ -223,7 +223,7 @@ function handleMessage(msg, session) {
           // filesOpen: filesOpen
         }));
 
-        console.log('line229 send clients that: ' + filesOpen)
+        // console.log('line229 send clients that: ' + filesOpen)
         send_all_clients(JSON.stringify({
           session: session.id,
           date: Date.now(),
