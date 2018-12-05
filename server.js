@@ -7,13 +7,13 @@ const url = require('url');
 const fs = require("fs");
 const path = require("path");
 const os = require("os");
-const { exec, execSync, spawn, spawnSync, fork } = require('child_process')
+// const { exec, execSync, spawn, spawnSync, fork } = require('child_process')
 const terminal = require("web-terminal");
 const ip = require('ip')
-const shell = require('vorpal')();
+// const shell = require('vorpal')();
 const lodash = require('lodash')
+var find = require('list-files');
 
-//process.chdir(process.argv[2] || ".");
 const project_path = path.join(__dirname + '../../17540-Luddy-Hall/Master Laptop/');
 const server_path = __dirname;
 const client_path = path.join(server_path, "client");
@@ -46,9 +46,6 @@ const wss = new WebSocket.Server({ server });
 
 //////////////// file browser ///////////////////
 //  exec('node ' + __dirname + '/node_modules/file-browser/index.js -p 8089', {cwp: '../../17540-Luddy-Hall'})
-
-var find = require('list-files');
- 
 
 
 // send a (string) message to all connected clients:
@@ -126,6 +123,18 @@ wss.on('connection', function(ws, req) {
     // lodash.pull(filesOpen, sessionFilename)
     delete sessionData[session.id];
     delete sessions[session.id];
+    // console.log(Object.values(sessionData));
+
+    filesOpen = [];
+    for (var k in sessionData) { 
+      filesOpen.push(sessionData[k]);
+  }
+    send_all_clients(JSON.stringify({
+      session: session.id,
+      date: Date.now(),
+      type: "filesInUse",
+      value: filesOpen,
+    }))
     console.log(sessionData)
     console.log('\n\n\nnum sessions = ' + wss.clients.size)
 

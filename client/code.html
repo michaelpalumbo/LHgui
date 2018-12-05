@@ -111,13 +111,10 @@ function handleMessage(msg) {
 
     case "filesInUse":
     filesOpen = msg.value
+    
     document.getElementById('filesInUse').options.length = 1;
     var sel = document.getElementById('filesInUse')
-    // var length = select;
 
-    // for (i = 3; i < sel.length; i++) {
-    //     sel.options[i] = null;
-    //     }
     
     Object.values(filesOpen).forEach(function (key, value) {
       // let user = key.id
