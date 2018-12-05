@@ -11,6 +11,7 @@ const { exec, execSync, spawn, spawnSync, fork } = require('child_process')
 const terminal = require("web-terminal");
 const ip = require('ip')
 const shell = require('vorpal')();
+const lodash = require('lodash')
 
 //process.chdir(process.argv[2] || ".");
 const project_path = path.join(__dirname + '../../17540-Luddy-Hall/Master Laptop/');
@@ -177,7 +178,7 @@ switch (process.argv[2]){
 let sessionId = 0;
 let sessions = [];
 // list which clients are editing a particular file:
-let clientFileEditors = [];
+let filesOpen = [];
 
 const app = express();
 app.use(express.static(client_path))
@@ -215,6 +216,13 @@ wss.on('connection', function(ws, req) {
 	console.log("server received a connection, new session " + session.id);
   console.log("server has "+wss.clients.size+" connected clients");
   
+  session.socket.send(JSON.stringify({
+    session: session.id,
+    date: Date.now(),
+    type: "filesInUse",
+    value: filesOpen,
+    // filesOpen: filesOpen
+  }));
   // session.id.send('source',sourceCode)
   // send_all_clients('source',sourceCode)
   // console.log(sourceCode)
@@ -324,6 +332,28 @@ function handleMessage(msg, session) {
 
     case "getFile":
       console.log(msg.filename)
+      //console.log(SessionID)
+      // check if file is currently in use by another editor:
+      if (lodash.some(filesOpen, msg.filename)
+
+      ) {
+        //In the array!
+        console.log('in the array')
+        // lodash.chain(filesOpen)
+        // .find({id: sessionId})
+        // .merge({file: msg.filename});
+        // console.log(filesOpen)
+
+    } else {
+        console.log('Not in the array')
+
+        filesOpen.push(msg.filename)
+        // lodash.chain(filesOpen)
+        // .find({id: sessionId})
+        // .merge({file: msg.filename});
+        console.log(filesOpen)
+    }     
+      
       sourceCode = fs.readFileSync(path.join(msg.filename), 'utf-8')
       //console.log(sourceCode)
       console.log('source code from ', msg.filename, ' loaded!')
@@ -334,7 +364,16 @@ function handleMessage(msg, session) {
           session: session.id,
           date: Date.now(),
           type: "source",
-          value: sourceCode
+          value: sourceCode,
+          // filesOpen: filesOpen
+        }));
+
+        session.socket.send(JSON.stringify({
+          session: session.id,
+          date: Date.now(),
+          type: "filesInUse",
+          value: filesOpen,
+          // filesOpen: filesOpen
         }));
     break;
 

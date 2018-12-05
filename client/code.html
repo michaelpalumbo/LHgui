@@ -96,27 +96,46 @@ rgb(199, 0, 57) --> */
 <button id="clearHighlights">Clear Highlighting</button>
 <div id="source" height="80%"></div> 
 
-<select size="10" style="width:100%; overflow: scroll;" id="openFileName" onchange="chooseFileName();">
-    <option selected disabled>Please Select File</option> 
-    <option value="New File...">New File...</option>        
-</select> 
+<table>
+  <td>
+      <select size="10" style="width:100%; overflow: scroll;" id="openFileName" onchange="chooseFileName();">
+          <option selected disabled>Please Select File</option> 
+          <option value="New File...">New File...</option>        
+      </select> 
+  </td>
+  <td>
+      <select size="10" style="width:100%; overflow: scroll;" id="filesInUse" onchange="nothing();">
+      
+      </select> 
+  </td>
+</table>
+
+
 
 <!-- <iframe id="listClosedFiles" width="50%" height="30%"></iframe> -->
 
 <script>
-
+var filesOpen = ['empty'];
   // file selection
 function chooseFileName () {
   var e = document.getElementById('openFileName')
   var selection = e.options[e.selectedIndex].value
   fileName = selection
   console.log(fileName)
+  console.log
 
-  ws.send(JSON.stringify({
+  if (filesOpen.includes(fileName)){
+    //don't allow opening this file for now. 
+    // to do: open file in codemirror in read-only mode!
+  } else{
+    // file is free, request it!
+    ws.send(JSON.stringify({
 		type: "getFile",
 		date: Date.now(),
 		filename: fileName
   }));
+  }
+
 
   // clear the commits list in the select element each time a file is opened
   // function removeOptions (selectbox) {
@@ -136,7 +155,8 @@ function chooseFileName () {
   //   document.title = selection
   // }
 }
-  var Host = "http://" + location.host.substr(0, location.host.indexOf(':'));
+  var Host = location.host.substr(0, location.host.indexOf(':'));
+  // Host = location.host.substr(location.host.indexOf('//'));
 // document.getElementById('listClosedFiles').src = Host + ':8089';
 
 var bodySize = [document.body.clientWidth, document.body.clientHeight]
@@ -177,7 +197,7 @@ function ws_connect(opt) {
 
 ws_connect({
 	transport: "ws",
-	host: "localhost",
+	host: Host,
 	port: "8080",
 	protocols: [],
 	onerror: function() {},
@@ -213,13 +233,37 @@ ws_connect({
 });
 
 var cppSource; // this must be global
-
 function handleMessage(msg) {
 	switch (msg.type) {
+
+    case "filesInUse":
+    filesOpen = msg.filesOpen
+    var sel = document.getElementById('filesInUse')
+    // var length = select;
+
+    // for (i = 3; i < sel.length; i++) {
+    //     sel.options[i] = null;
+    //     }
+    
+    Object.values(filesOpen).forEach(function (key, value) {
+      // let user = key.id
+      // let fileInUse = key.file
+      console.log(key, value)
+      var opt = document.createElement('option')
+      opt.appendChild(document.createTextNode(value))
+      opt.value = value
+      sel.appendChild(opt)
+    })
+
+    break;
+
     case "source":
 
     sourceCode = JSON.parse(msg.value)
     stateCode(sourceCode)
+    // console.log(msg.filesOpen)
+
+
 
     break;
 
@@ -239,90 +283,30 @@ function handleMessage(msg) {
               sel.appendChild(opt)
             })
 
+
+
+    
     break;
-/*
-		case "set_ast": 
-			// update whole scene based on msg.value
-			// console.log(msg.value);
-			let ast = msg.value;
-			cppSource = msg.value.files;
-			let files = Object.keys(cppSource) // set list of files
-			filePicker(files) // update the file list in the filepicker menu
-			cpp2CodeMirror(cppSource[Object.keys(cppSource)[1]], $("#codeView")); //put the cpp code in codemirror
-			
-			$("#tree").children().remove(); // clear the tree
-			ast2html(ast, $("#tree"), ast); // decorate the tree...
-			
 
-		break;
-		case "git":
-		console.log(msg.hash)
-		hash = msg.hash.split(" ")[0]
-		time = new Date(msg.date).toUTCString()
+    case "openFiles":
 
-		console.log(time)
-		
-		commitMsg = msg.hash.replace(/^\S+/g, '')
-		entry = time + " " + commitMsg
-		var sel = document.getElementById('sessionHistorySelect')
-
-			var opt = document.createElement('option')
-			opt.appendChild(document.createTextNode(entry))
-			opt.value = hash
-			sel.appendChild(opt)
-		break;
-
-		case "update": 
-			
-			updatedAST = JSON.stringify(msg.value.diagnostics)
-			//console.log("update\n" + updatedAST)
-
-			msg.value.diagnostics.forEach(function (item) {
-				console.log('line ' + item.loc.begin.line + ': ' + item.kind);
-				//console.log(item.loc);
-
-				//console.log(item.severity);
-
-				var sel = document.getElementById('astErrorSelect')
-				var opt = document.createElement('option')
-				opt.appendChild(document.createTextNode('line ' + item.loc.begin.line + ': ' + item.kind))
-				opt.value = item.loc.begin.line
-				sel.appendChild(opt)
-
-			})
-
-
-			
-
-
-			
-
-			// updatedAST.diagnostics.forEach(function (item) {
-			// 	console.log(item)
-			// })
-
-
-			
-		
     break;
-    */
-
 	}
 }
 
-function selectHash(select){
-	e = document.getElementById(select)
-  var hash = e.options[e.selectedIndex].value
-  // console.log(selectedBranch)
-	//ws.send('selectedBranch?' + selectedBranch)
-	console.log(hash)
-	ws.send(JSON.stringify({
-		type: "show",
-		date: Date.now(),
-		hash: hash,
-		filename: filename
-	}));
-}
+// function selectHash(select){
+// 	e = document.getElementById(select)
+//   var hash = e.options[e.selectedIndex].value
+//   // console.log(selectedBranch)
+// 	//ws.send('selectedBranch?' + selectedBranch)
+// 	console.log(hash)
+// 	ws.send(JSON.stringify({
+// 		type: "show",
+// 		date: Date.now(),
+// 		hash: hash,
+// 		filename: filename
+// 	}));
+// }
 
 // fill the codemirror instance with source code
 function stateCode(stateCode) {
@@ -391,7 +375,7 @@ function writeSourceCode()
 
         // console.log(writesourceCode)           
     }
-
+/*
 function updateState(paramName, paramValue){
 
 // Update the state.bin server-side ///////////////////////
@@ -447,7 +431,7 @@ $("#clearHighlights").click( function()
 });
 
 })
-
+*/
 
 </script>
 
