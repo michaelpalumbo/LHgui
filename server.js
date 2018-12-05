@@ -165,17 +165,19 @@ switch (process.argv[2]){
         // .delimiter('masterLaptop$')
         // .show();
 
-var sourceFile = 'LuddyLaptopMaster.py'
+// var sourceFile = 'LuddyLaptopMaster.py'
 
-var sourceCode = fs.readFileSync(path.join(project_path, sourceFile), 'utf-8')
-//console.log(sourceCode)
-console.log('source code from ', sourceFile, ' loaded!')
- sourceCode = JSON.stringify(sourceCode)
+// var sourceCode = fs.readFileSync(path.join(project_path, sourceFile), 'utf-8')
+// //console.log(sourceCode)
+// console.log('source code from ', sourceFile, ' loaded!')
+//  sourceCode = JSON.stringify(sourceCode)
 // console.log(JSON.stringify(sourceCode))
 
 
 let sessionId = 0;
 let sessions = [];
+// list which clients are editing a particular file:
+let clientFileEditors = [];
 
 const app = express();
 app.use(express.static(client_path))
@@ -218,12 +220,12 @@ wss.on('connection', function(ws, req) {
   // console.log(sourceCode)
 
   // function sendSource(ast, session) {
-    session.socket.send(JSON.stringify({
-      session: session.id,
-      date: Date.now(),
-      type: "source",
-      value: sourceCode
-    }));
+    // session.socket.send(JSON.stringify({
+    //   session: session.id,
+    //   date: Date.now(),
+    //   type: "source",
+    //   value: sourceCode
+    // }));
   // }
 
   find(function(result) {
@@ -324,7 +326,7 @@ function handleMessage(msg, session) {
       console.log(msg.filename)
       sourceCode = fs.readFileSync(path.join(msg.filename), 'utf-8')
       //console.log(sourceCode)
-      console.log('source code from ', sourceFile, ' loaded!')
+      console.log('source code from ', msg.filename, ' loaded!')
       sourceCode = JSON.stringify(sourceCode)
 
       // function sendSource(ast, session) {
@@ -336,11 +338,7 @@ function handleMessage(msg, session) {
         }));
     break;
 
-		// case "get_source": {
-		// 	send_all_clients('source?',sourceCode)
-		// }
-		// break;
-		
+
 	}
 }
 
