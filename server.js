@@ -168,9 +168,6 @@ var terminalApp = http.createServer(function (req, res) {
   res.end("Hello World\n");
 });
 
-// terminalApp.listen(1337);
-// console.log("Server running at http://127.0.0.1:1337/");
-
 terminal(terminalApp);
 
 
@@ -182,7 +179,7 @@ function handleMessage(msg, session) {
 	switch (msg.type) {
 
     case "freeFilename":
-    console.log("\n\nnum sessions: " + sessions)
+    console.log("\n\nnum sessions: " + wss.clients.size)
     console.log(filesOpen)
     lodash.pull(filesOpen, msg.filename)
     console.log(filesOpen)
@@ -196,9 +193,9 @@ function handleMessage(msg, session) {
     break;
 
     case "update":
-      console.log('\n\nsteve\n\n' + msg.message, msg.filename, msg.sourceCode)
-
       fs.writeFileSync(msg.filename, msg.sourceCode)
+      console.log('\n\n',msg.fileName, ' WRITTEN')
+      console.log('if git gets integrated, use this: ' + msg.message)
     break;
 
     case "getFile":
@@ -226,6 +223,7 @@ function handleMessage(msg, session) {
           // filesOpen: filesOpen
         }));
 
+        console.log('line229 send clients that: ' + filesOpen)
         send_all_clients(JSON.stringify({
           session: session.id,
           date: Date.now(),

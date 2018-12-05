@@ -6,28 +6,14 @@
 <head>
 
 <!--        SOURCES         -->
-
-
     <link rel=stylesheet href="cm/docs.css">
     <link rel=stylesheet href="cm/codemirror.css">
     <link rel=stylesheet href="cm/addons/fullscreen/fullscreen.css">
     <link rel=stylesheet href="cm/one-dark.css">
 
-
-
-    <!-- <link rel=stylesheet href="cm/merge.css">
-    <link rel=stylesheet href="cm/icecoder.css"> -->
-
     <!-- scripts -->
     <script src="cm/codemirror.js"></script>
     <script src="cm/css.js"></script>
-    <!-- load local server version if cdn unavailable -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/diff_match_patch/20121119/diff_match_patch.js"></script><script>if (!window.jQuery) document.write('<script src="cm/diff_match_patch.js"><\/script>');</script> -->
-
-    <!-- <script src="cm/htmlmixed.js"></script> -->
-    <!-- <script src="cm/xml.js"></script> -->
-    <!-- <script src="cm/merge.js"></script> -->
-    <!-- <script src="cm/modes/javascript.js"></script> -->
     <script src="cm/modes/clike.js"></script>
     <script src="cm/modes/glsl.js"></script>
     <script src="cm/modes/python.js"></script>
@@ -35,27 +21,10 @@
   <script src="cm/addons/panel.js"></script>
   <script src="cm/addons/fullscreen/fullscreen.js"></script>
   <script src="cm/cm-resize.js"></script>
-
-
-<!-- General Sources -->
-    <!-- style -->
     <link rel=stylesheet href="css/jquery-ui.css">
-
-    <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
-
-    <link rel=stylesheet href="css/cards.css">
     <script src="js/jquery-3.3.1.js"></script>
     <script src="js/jquery-ui.js"></script>
-
-    <!-- resizeable columns -->
-    <!-- <link rel=stylesheet href="css/colresizeable.css"> -->
-
-    <!-- <script src="js/colResizable-1.5.min.js"></script> -->
-
     <script src="js/jquery.mousewheel.js"></script>
-
-    <!-- server address & open/close -->
-
 </head>
 
 <style>
@@ -63,30 +32,6 @@
 .cm-highlight {color: lightgreen; background-color: green}
 .cm-highlight-lastLine {color: rgb(144, 182, 238); background-color: rgb(0, 102, 128)}
 .CodeMirror-selection-highlight-scrollbar {background-color: green}
-
-/* <!-- rgb(39, 174, 96)
-rgb(142, 68, 173)
-rgb(218, 247, 166)
-rgb(255, 195, 0)
-rgb(255, 87, 51)
-rgb(199, 0, 57) --> */
-/* .cm {
-    width:200px;
-   	margin:auto;
-    font-size:14px;
-    border:1px solid #000;
-    border-collapse:collapse; }
-
-.cm td {
-    color:#000099;
-    vertical-align:middle;
-    text-align:left;
-    border:1px solid #000;
-    height: 100% } */
-
-/* .stateParams {
-
-} */
 </style>
 
 <button id="writesourceCode">Save</button>
@@ -103,38 +48,17 @@ rgb(199, 0, 57) --> */
   <td width="35%">
       <select size="10" style="width:100%; overflow: scroll;" id="filesInUse" onchange="chooseFileName();">
           <option selected disabled>Files in use by other clients</option> 
-
-      
       </select> 
   </td>
 </table>
-
-
-
-<!-- <iframe id="listClosedFiles" width="50%" height="30%"></iframe> -->
-
 <script>
-
-  var Host = location.host.substr(0, location.host.indexOf(':'));
-  // Host = location.host.substr(location.host.indexOf('//'));
-// document.getElementById('listClosedFiles').src = Host + ':8089';
-
-var bodySize = [document.body.clientWidth, document.body.clientHeight]
+// set the host to public IP
+var Host = location.host.substr(0, location.host.indexOf(':'));
 var ws_url;
-// var worktreeList;
-// var history;
 var ws;
 var ws_url = "ws://" + window.location.host;
-//the alicenode state:
-var state = [];
-var lines = []
-var lastLine;
+// dirty flag for cm editor
 var editorIsDirty;
-
-
-// document.getElementById('server').value = ws_url;
-
-
 
 /////////////////// WEBSOCKET STUFF
 
@@ -165,11 +89,6 @@ ws_connect({
 	onclose: function(e) { console.log('websocket closed', e.code); },
 	onopen: function() {
 		console.log('websocket opened');
-		// once connected, request the current scene:
-		// ws.send(JSON.stringify({
-		// 	type: "get_ast",
-		// 	date: Date.now()
-		// }));
 	},
 	onmessage: function(e) { 
 		if (e.data instanceof ArrayBuffer) {
@@ -184,12 +103,6 @@ ws_connect({
 				console.log('ws bad JSON: ', e);
 			}
 		} 
-		// //Example code: send a binary blob:
-		// const array = new Float32Array(5);
-		// for (var i = 0; i < array.length; ++i) {
-		// 	array[i] = i / 2;
-		// }
-		// ws.send(array);
 	},
 });
 
@@ -290,18 +203,17 @@ function chooseFileName () {
             filename: fileName,
             message: changeMsg
           }));
-
-          // free the filename in the opened files list
-          ws.send(JSON.stringify({
-          type: "freeFilename",
-          date: Date.now(),
-          filename: fileName
-        }));
       } 
 
     } 
   }
 
+  // free the filename in the opened files list
+  ws.send(JSON.stringify({
+    type: "freeFilename",
+    date: Date.now(),
+    filename: fileName
+  }));
   var e = document.getElementById('openFileName')
   var selection = e.options[e.selectedIndex].value
 
