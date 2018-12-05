@@ -35,21 +35,25 @@ document.domain = document.domain;
         <div id="3d-graph"></div>
     </div> -->
     <div id="tab1" class="tab">
-        <iframe src="code.html" height="100%" width="100%"></iframe>
+        <iframe id="iframeCode" height="100%" width="100%"></iframe>
     </div>
     <div id="tab2" class="tab">
-        <iframe src="http://localhost:8080/terminal.html" height="100%" width="100%"></iframe>
+        <iframe id="iframeTerminal" height="100%" width="100%"></iframe>
     </div>
     <!-- <div id="tab3" class="tab">
         <iframe src="http://localhost:3000" height="100%" width="100%"></iframe>
     </div> -->
     <div id="tab3" class="tab">
-        <input top=5px id="server" type="text" value="ws://localhost:8080" size="40">
+        <!-- <input top=5px id="server" type="text" value="ws://localhost:8080" size="40"> -->
     </div>
 </div>
 
 <!-- Tabs mechanism using https://github.com/vitmalina/w2ui/ -->
 <script>
+var Host = "http://" + location.host.substr(0, location.host.indexOf(':'));
+document.getElementById('iframeTerminal').src = Host + ':8080/terminal.html';
+document.getElementById('iframeCode').src = Host + ':8080/code.html';
+
 var config = {
     tabs: {
         name: 'tabs',
@@ -58,7 +62,7 @@ var config = {
             { id: 'tab1', caption: 'Code' },
             { id: 'tab2', caption: 'Terminal' },
             // { id: 'tab3', caption: 'Commit Board' },
-            { id: 'tab3', caption: 'State' },
+            { id: 'tab3', caption: 'etc' },
         ],
         onClick: function (event) {
             $('#tab-example .tab').hide();

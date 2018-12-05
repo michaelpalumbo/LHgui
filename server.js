@@ -187,6 +187,10 @@ const server = http.createServer(app);
 // add a websocket service to the http server:
 const wss = new WebSocket.Server({ server });
 
+
+//////////////// file browser ///////////////////
+// exec(node + ' ' + _dirname + '/node_modules/file-browser/index.js -p 8089')
+
 // send a (string) message to all connected clients:
 function send_all_clients(msg) {
 	wss.clients.forEach(function each(client) {
@@ -301,3 +305,4 @@ function handleMessage(msg, session) {
 		
 	}
 }
+
