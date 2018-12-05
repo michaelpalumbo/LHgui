@@ -1,12 +1,10 @@
 //Michael: next thing TODO: see near bottom of document for case "code":
 const express = require('express');
 const WebSocket = require('ws');
-
 const http = require('http');
 const url = require('url');
 const fs = require("fs");
 const path = require("path");
-const os = require("os");
 // const { exec, execSync, spawn, spawnSync, fork } = require('child_process')
 const terminal = require("web-terminal");
 const ip = require('ip')
@@ -73,21 +71,9 @@ wss.on('connection', function(ws, req) {
     value: filesOpen,
     // filesOpen: filesOpen
   }));
-  // session.id.send('source',sourceCode)
-  // send_all_clients('source',sourceCode)
-  // console.log(sourceCode)
-
-  // function sendSource(ast, session) {
-    // session.socket.send(JSON.stringify({
-    //   session: session.id,
-    //   date: Date.now(),
-    //   type: "source",
-    //   value: sourceCode
-    // }));
-  // }
 
   find(function(result) {
-  
+    console.log(result.includes('*.*'))
     // console.log(result);
     //=> './dirname/a.js'
     //=> './dirname/b.js'
