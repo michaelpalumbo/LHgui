@@ -134,6 +134,7 @@ wss.on('connection', function(ws, req) {
       date: Date.now(),
       type: "filesInUse",
       value: filesOpen,
+      sessionData: sessionData
     }))
     console.log(sessionData)
     console.log('\n\n\nnum sessions = ' + wss.clients.size)
@@ -194,6 +195,9 @@ function handleMessage(msg, session) {
 	
 	switch (msg.type) {
 
+    case "userName":
+    // sessionData[msg.userName] = session.id
+    break;
     case "freeFilename":
     console.log("\n\nnum sessions: " + wss.clients.size)
     console.log(filesOpen)

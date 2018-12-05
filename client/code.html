@@ -33,7 +33,9 @@
 .cm-highlight-lastLine {color: rgb(144, 182, 238); background-color: rgb(0, 102, 128)}
 .CodeMirror-selection-highlight-scrollbar {background-color: green}
 </style>
-
+  <form name="myform" action="javascript:setUser(username.value)">  
+      <input type="text" name="username" id="username" maxlength="40"> 
+      <input name="Submit"  type="submit" value="Set Username"/>
 <button id="writesourceCode">Save</button>
 <button id="clearHighlights">Clear Highlighting</button>
 <div id="source" height="80%"></div> 
@@ -59,6 +61,22 @@ var ws;
 var ws_url = "ws://" + window.location.host;
 // dirty flag for cm editor
 var editorIsDirty;
+var clientName;
+
+function setUser(name){
+clientName = name;
+localStorage.setItem('clientName', clientName);
+console.log(clientName)
+}
+
+document.onload = init();
+
+function init(){
+  clientName = localStorage.getItem('clientName')
+  console.log(clientName)
+  document.getElementById('username').value = clientName;
+
+}
 
 /////////////////// WEBSOCKET STUFF
 
@@ -88,7 +106,14 @@ ws_connect({
 	onerror: function() {},
 	onclose: function(e) { console.log('websocket closed', e.code); },
 	onopen: function() {
-		console.log('websocket opened');
+    console.log('websocket opened');
+
+    ws.send(JSON.stringify({
+        type: "userName",
+        date: Date.now(),
+        userName: clientName
+  }));
+    
 	},
 	onmessage: function(e) { 
 		if (e.data instanceof ArrayBuffer) {
