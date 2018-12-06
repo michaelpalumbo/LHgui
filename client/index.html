@@ -62,7 +62,7 @@ var Host = "http://" + location.host.substr(0, location.host.indexOf(':'));
 document.getElementById('iframeTerminal').src = Host + ':8080/terminal.html';
 document.getElementById('iframeCode').src = Host + ':8080/code.html';
 document.getElementById('Node-RED').src = Host + ':8080/Node-RED.html';
-document.getElementById('diagnostics').src = Host + ':8080/diagnostics.html';
+document.getElementById('diagnostics').src = Host + ':8080/stats.html';
 
 var config = {
     tabs: {
@@ -72,7 +72,7 @@ var config = {
             { id: 'tab1', caption: 'Code' },
             { id: 'tab2', caption: 'Terminal' },
             { id: 'tab3', caption: 'Rasbperry Pi' },
-            { id: 'tab4', caption: 'Diagnostics' },
+            { id: 'tab4', caption: 'Stats' },
         ],
         onClick: function (event) {
             $('#tab-example .tab').hide();

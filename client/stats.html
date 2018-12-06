@@ -69,7 +69,25 @@
 </style>
 
 <body>
-<div id="cpuBusy"></div>
+
+    <table>
+        <tr>
+            <th width="20%">
+                Master Laptop
+            </th>
+            <th width="20%">
+                Raspberry Pi .89
+            </th>
+        </tr>
+        <tr>
+            <td>
+                <div id="masterCPUBusy"></div>
+            </td>
+            <td>
+                <div id="89CPUBusy"></div>
+            </td>
+        </tr>
+    </table>
 </body>
 <script>
     //workaround for cross domain origin requests issue
@@ -146,7 +164,7 @@ function handleMessage(msg) {
     case "diagnostics":
     // filesOpen = msg.value
     
-    document.getElementById('cpuBusy').innerHTML = ('CPU Percentage Busy: ' + msg.cpuBusy.toFixed(2) + '%')
+    document.getElementById('masterCPUBusy').innerHTML = ('CPU Percentage Busy: ' + msg.cpuBusy.toFixed(2) + '%')
     break;
 
     }

@@ -1,0 +1,853 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScappleDocument Version="1.1" ID="C682B9FE-48B3-4A0B-9628-9A9AE9BEF61F">
+    <Notes>
+        <Note ID="0" FontSize="12.0" Position="542.589844,1143.851562" Width="86.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>Python Master</String>
+            <ConnectedNoteIDs>1, 5</ConnectedNoteIDs>
+            <PointsToNoteIDs>1, 5</PointsToNoteIDs>
+        </Note>
+        <Note ID="1" FontSize="12.0" Position="435.828125,1251.949219" Width="79.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>Python Slave</String>
+            <ConnectedNoteIDs>0, 3-4</ConnectedNoteIDs>
+            <PointsToNoteIDs>3-4</PointsToNoteIDs>
+        </Note>
+        <Note ID="3" FontSize="12.0" Position="381.828125,1344.203125" Width="47.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>Teensy</String>
+            <ConnectedNoteIDs>1</ConnectedNoteIDs>
+        </Note>
+        <Note ID="4" FontSize="12.0" Position="534.601562,1356.765625" Width="47.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>Teensy</String>
+            <ConnectedNoteIDs>1</ConnectedNoteIDs>
+        </Note>
+        <Note ID="5" FontSize="12.0" Position="673.628906,1257.902344" Width="79.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>Python Slave</String>
+            <ConnectedNoteIDs>0, 6-7, 13</ConnectedNoteIDs>
+            <PointsToNoteIDs>6-7</PointsToNoteIDs>
+        </Note>
+        <Note ID="6" FontSize="12.0" Position="638.578125,1363.371094" Width="47.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>Teensy</String>
+            <ConnectedNoteIDs>5</ConnectedNoteIDs>
+        </Note>
+        <Note ID="7" FontSize="12.0" Position="806.824219,1360.984375" Width="47.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>Teensy</String>
+            <ConnectedNoteIDs>5</ConnectedNoteIDs>
+        </Note>
+        <Note ID="8" FontSize="12.0" Position="518.488281,780.9375" Width="87.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>Setup Network</String>
+            <ConnectedNoteIDs>9-11</ConnectedNoteIDs>
+        </Note>
+        <Note ID="9" FontSize="12.0" Position="607.578125,813.9375" Width="66.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>IP Sockets</String>
+            <ConnectedNoteIDs>8</ConnectedNoteIDs>
+        </Note>
+        <Note ID="10" FontSize="12.0" Position="581.792969,842.9375" Width="46.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>Buffers</String>
+            <ConnectedNoteIDs>8</ConnectedNoteIDs>
+        </Note>
+        <Note ID="11" FontSize="12.0" Position="554.714844,875.9375" Width="51.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>Queues</String>
+            <ConnectedNoteIDs>8</ConnectedNoteIDs>
+        </Note>
+        <Note ID="12" FontSize="12.0" Position="523.488281,922.9375" Width="99.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>Register Devices</String>
+        </Note>
+        <Note ID="13" FontSize="12.0" Position="752.078125,1068.960938" Width="72.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>Web Server</String>
+            <ConnectedNoteIDs>5, 16, 78</ConnectedNoteIDs>
+            <PointsToNoteIDs>16, 78</PointsToNoteIDs>
+        </Note>
+        <Note ID="15" FontSize="12.0" Position="622.988281,997.359375" Width="85.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>Master Laptop</String>
+            <ConnectedNoteIDs>38-39, 41-42</ConnectedNoteIDs>
+        </Note>
+        <Note ID="16" FontSize="12.0" Position="1162.363281,1002.957031" Width="57.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+                <Border Weight="1">0.331867 0.609932 0.356197</Border>
+                <Fill>0.790123 0.882328 0.80198</Fill>
+            </Appearance>
+            <String>Web App</String>
+            <ConnectedNoteIDs>13, 26, 43, 45, 51, 56</ConnectedNoteIDs>
+            <PointsToNoteIDs>13</PointsToNoteIDs>
+        </Note>
+        <Note ID="17" FontSize="12.0" Position="326.0,540.359375" Width="200.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>underspecified directionality / symbolic</String>
+        </Note>
+        <Note ID="18" FontSize="12.0" Position="205.828125,535.984375" Width="20.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>.</String>
+            <ConnectedNoteIDs>19</ConnectedNoteIDs>
+        </Note>
+        <Note ID="19" FontSize="12.0" Position="283.675781,534.972656" Width="20.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>.</String>
+            <ConnectedNoteIDs>18</ConnectedNoteIDs>
+        </Note>
+        <Note ID="20" FontSize="12.0" Position="321.09375,577.539062" Width="79.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>unidirectional</String>
+        </Note>
+        <Note ID="21" FontSize="12.0" Position="209.09375,575.328125" Width="20.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>.</String>
+            <ConnectedNoteIDs>22</ConnectedNoteIDs>
+            <PointsToNoteIDs>22</PointsToNoteIDs>
+        </Note>
+        <Note ID="22" FontSize="12.0" Position="286.941406,574.316406" Width="20.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>.</String>
+            <ConnectedNoteIDs>21</ConnectedNoteIDs>
+        </Note>
+        <Note ID="23" FontSize="12.0" Position="322.09375,625.539062" Width="73.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>bidirectional</String>
+        </Note>
+        <Note ID="24" FontSize="12.0" Position="210.390625,623.640625" Width="20.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>.</String>
+            <ConnectedNoteIDs>25</ConnectedNoteIDs>
+            <PointsToNoteIDs>25</PointsToNoteIDs>
+        </Note>
+        <Note ID="25" FontSize="12.0" Position="288.238281,622.628906" Width="20.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>.</String>
+            <ConnectedNoteIDs>24</ConnectedNoteIDs>
+            <PointsToNoteIDs>24</PointsToNoteIDs>
+        </Note>
+        <Note ID="26" FontSize="12.0" Position="1051.996094,1139.664062" Width="75.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+                <Border Weight="1">0.477193 0.557066 0.76433</Border>
+                <Fill>0.840969 0.866828 0.925903</Fill>
+            </Appearance>
+            <String>Distributed Code &amp; text Editor</String>
+            <ConnectedNoteIDs>16, 27-29, 31, 34</ConnectedNoteIDs>
+        </Note>
+        <Note ID="27" FontSize="12.0" Position="1163.234375,1146.679688" Width="127.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>Knowledge of code currently being edited</String>
+            <ConnectedNoteIDs>26</ConnectedNoteIDs>
+        </Note>
+        <Note ID="28" FontSize="12.0" Position="1035.679688,1301.347656" Width="132.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>blocks simultaneous editing of a single file</String>
+            <ConnectedNoteIDs>26</ConnectedNoteIDs>
+        </Note>
+        <Note ID="29" FontSize="12.0" Position="957.21875,1254.832031" Width="127.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>simultaneous read-only file viewing</String>
+            <ConnectedNoteIDs>26</ConnectedNoteIDs>
+        </Note>
+        <Note ID="31" FontSize="12.0" Position="1154.640625,1216.761719" Width="132.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>exposes filesystem to peers on network</String>
+            <ConnectedNoteIDs>26</ConnectedNoteIDs>
+        </Note>
+        <Note ID="34" FontSize="12.0" Position="1105.253906,1261.429688" Width="127.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>files can be edited a/synchronously</String>
+            <ConnectedNoteIDs>26</ConnectedNoteIDs>
+        </Note>
+        <Note ID="35" FontSize="12.0" Position="1240.015625,1460.722656" Width="200.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>I really appreciate how much face-to-face interaction there is on the engineering team. By exposing what people are working on, this web app shouldn’t replace this — in fact i’m curious about making tools that provide access to knowledge about real-time and historical team activity, how this can inform team members…</String>
+        </Note>
+        <Note ID="36" FontSize="12.0" Position="1582.953125,1492.003906" Width="198.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>Rob mentioned “conceptual design”</String>
+        </Note>
+        <Note ID="37" FontSize="12.0" Position="1463.375,1393.675781" Width="200.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>VR-in-VR project with Graham. model-driven engineering, direct editing of ASTs, the Alicenode state editor</String>
+        </Note>
+        <Note ID="38" FontSize="12.0" Position="689.460938,598.023438" Width="24.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+                <Border Weight="1">0.747881 0.366532 0.542813</Border>
+                <Fill>0.918452 0.807302 0.863467</Fill>
+            </Appearance>
+            <String>4D</String>
+            <ConnectedNoteIDs>15, 90-91, 94-95, 98</ConnectedNoteIDs>
+            <PointsToNoteIDs>98</PointsToNoteIDs>
+        </Note>
+        <Note ID="39" FontSize="12.0" Position="764.007812,808.84375" Width="83.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>Encephalo (?)</String>
+            <ConnectedNoteIDs>15</ConnectedNoteIDs>
+        </Note>
+        <Note ID="41" FontSize="12.0" Position="781.121094,863.058594" Width="106.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>Composition Tools</String>
+            <ConnectedNoteIDs>15</ConnectedNoteIDs>
+        </Note>
+        <Note ID="42" FontSize="12.0" Position="818.0,917.0" Width="169.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>BCI - brain computer interface</String>
+            <ConnectedNoteIDs>15</ConnectedNoteIDs>
+        </Note>
+        <Note ID="43" FontSize="12.0" Position="1362.574219,1146.066406" Width="141.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+                <Border Weight="1">0.477193 0.557066 0.76433</Border>
+                <Fill>0.840969 0.866828 0.925903</Fill>
+            </Appearance>
+            <String>Command-Line Interface</String>
+            <ConnectedNoteIDs>16, 44</ConnectedNoteIDs>
+        </Note>
+        <Note ID="44" FontSize="12.0" Position="1405.0,1189.699219" Width="89.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>exposes Command line of master laptop to peers on the network</String>
+            <ConnectedNoteIDs>43</ConnectedNoteIDs>
+        </Note>
+        <Note ID="45" FontSize="12.0" Position="1597.667969,1147.648438" Width="161.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+                <Border Weight="1">0.477193 0.557066 0.76433</Border>
+                <Fill>0.840969 0.866828 0.925903</Fill>
+            </Appearance>
+            <String>MQTT/Node-Red Integration</String>
+            <ConnectedNoteIDs>16, 46-48</ConnectedNoteIDs>
+        </Note>
+        <Note ID="46" FontSize="12.0" Position="1678.5625,1223.261719" Width="84.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>Simultaneous edits</String>
+            <ConnectedNoteIDs>45</ConnectedNoteIDs>
+        </Note>
+        <Note ID="47" FontSize="12.0" Position="1587.054688,1194.933594" Width="91.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>Built-in version control and merging</String>
+            <ConnectedNoteIDs>45</ConnectedNoteIDs>
+        </Note>
+        <Note ID="48" FontSize="12.0" Position="1731.585938,1183.269531" Width="117.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>All 7 RPi’s are mapped in</String>
+            <ConnectedNoteIDs>45, 49-50</ConnectedNoteIDs>
+        </Note>
+        <Note ID="49" FontSize="12.0" Position="1882.675781,1214.246094" Width="100.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>5 in the sculpture</String>
+            <ConnectedNoteIDs>48</ConnectedNoteIDs>
+        </Note>
+        <Note ID="50" FontSize="12.0" Position="1792.230469,1240.835938" Width="124.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>2 test Pis (Michael L.)</String>
+            <ConnectedNoteIDs>48</ConnectedNoteIDs>
+        </Note>
+        <Note ID="51" FontSize="12.0" Position="1999.101562,1099.414062" Width="71.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+                <Border Weight="1">0.477193 0.557066 0.76433</Border>
+                <Fill>0.840969 0.866828 0.925903</Fill>
+            </Appearance>
+            <String>Stats Page!</String>
+            <ConnectedNoteIDs>16, 53-55</ConnectedNoteIDs>
+        </Note>
+        <Note ID="53" FontSize="12.0" Position="2167.226562,1158.550781" Width="200.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>- cpu usage
+- ram usage
+- network diagnostics 
+- main python script's speed (loops per second?)</String>
+            <ConnectedNoteIDs>51</ConnectedNoteIDs>
+        </Note>
+        <Note ID="54" FontSize="12.0" Position="2204.089844,1079.207031" Width="200.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>- all devices checked in with the laptop at set interval
+  -- this info gets transfered to the server; flags if device didn't check in. </String>
+            <ConnectedNoteIDs>51</ConnectedNoteIDs>
+        </Note>
+        <Note ID="55" FontSize="12.0" Position="2091.121094,1044.917969" Width="67.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>Resiliency!</String>
+            <ConnectedNoteIDs>51</ConnectedNoteIDs>
+        </Note>
+        <Note ID="56" FontSize="12.0" Position="1342.988281,972.628906" Width="59.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>Security?</String>
+            <ConnectedNoteIDs>16</ConnectedNoteIDs>
+        </Note>
+        <Note ID="57" FontSize="12.0" Position="156.210938,881.183594" Width="111.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>prescript behaviour</String>
+            <ConnectedNoteIDs>58, 65</ConnectedNoteIDs>
+        </Note>
+        <Note ID="58" FontSize="12.0" Position="122.242188,915.140625" Width="79.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>handcrafted framework</String>
+            <ConnectedNoteIDs>57</ConnectedNoteIDs>
+        </Note>
+        <Note ID="61" FontSize="12.0" Position="106.117188,1101.378906" Width="121.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>Single agent reaction</String>
+            <ConnectedNoteIDs>62, 65</ConnectedNoteIDs>
+        </Note>
+        <Note ID="62" FontSize="12.0" Position="67.261719,1141.238281" Width="128.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>reinforcement learning</String>
+            <ConnectedNoteIDs>61</ConnectedNoteIDs>
+        </Note>
+        <Note ID="63" FontSize="12.0" Position="335.898438,940.148438" Width="20.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>IR</String>
+        </Note>
+        <Note ID="64" FontSize="12.0" Position="318.816406,1021.09375" Width="20.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>IR</String>
+        </Note>
+        <Note ID="65" FontSize="12.0" Position="554.464844,1060.039062" Width="135.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>[MACHINE LEARNING]</String>
+            <ConnectedNoteIDs>57, 61, 69, 71</ConnectedNoteIDs>
+            <PointsToNoteIDs>57, 61, 69, 71</PointsToNoteIDs>
+        </Note>
+        <Note ID="67" FontSize="12.0" Position="108.902344,813.21875" Width="104.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>Machine Learning</String>
+            <ConnectedNoteIDs>76</ConnectedNoteIDs>
+        </Note>
+        <Note ID="69" FontSize="12.0" Position="98.039062,1195.371094" Width="146.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>agent community reaction</String>
+            <ConnectedNoteIDs>65, 72</ConnectedNoteIDs>
+        </Note>
+        <Note ID="70" FontSize="12.0" Position="41.136719,1049.574219" Width="128.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>reinforcement learning</String>
+            <ConnectedNoteIDs>71</ConnectedNoteIDs>
+        </Note>
+        <Note ID="71" FontSize="12.0" Position="147.457031,997.152344" Width="97.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>parameterised learning agent</String>
+            <ConnectedNoteIDs>65, 70</ConnectedNoteIDs>
+        </Note>
+        <Note ID="72" FontSize="12.0" Position="157.96875,1242.929688" Width="20.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>…</String>
+            <ConnectedNoteIDs>69</ConnectedNoteIDs>
+        </Note>
+        <Note ID="73" FontSize="12.0" Position="323.917969,1080.644531" Width="20.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>...</String>
+        </Note>
+        <Note ID="74" FontSize="12.0" Position="337.054688,1136.644531" Width="20.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>…</String>
+        </Note>
+        <Note ID="76" FontSize="12.0" Position="26.105469,722.050781" Width="200.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>virtual robot experimentation platform (V-REP)</String>
+            <ConnectedNoteIDs>67</ConnectedNoteIDs>
+        </Note>
+        <Note ID="77" FontSize="12.0" Position="134.636719,772.414062" Width="20.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>…</String>
+        </Note>
+        <Note ID="78" FontSize="12.0" Position="1137.429688,837.980469" Width="66.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+                <Border Weight="1">0.331867 0.609932 0.356197</Border>
+                <Fill>0.790123 0.882328 0.80198</Fill>
+            </Appearance>
+            <String>Public GUI</String>
+            <ConnectedNoteIDs>13, 80-84, 87-89</ConnectedNoteIDs>
+            <PointsToNoteIDs>13</PointsToNoteIDs>
+        </Note>
+        <Note ID="80" FontSize="12.0" Position="1367.738281,831.902344" Width="35.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>mute</String>
+            <ConnectedNoteIDs>78</ConnectedNoteIDs>
+        </Note>
+        <Note ID="81" FontSize="12.0" Position="1333.273438,870.140625" Width="47.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>volume</String>
+            <ConnectedNoteIDs>78</ConnectedNoteIDs>
+        </Note>
+        <Note ID="82" FontSize="12.0" Position="1231.691406,913.359375" Width="32.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>start</String>
+            <ConnectedNoteIDs>78</ConnectedNoteIDs>
+        </Note>
+        <Note ID="83" FontSize="12.0" Position="1295.261719,887.121094" Width="31.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>stop</String>
+            <ConnectedNoteIDs>78</ConnectedNoteIDs>
+        </Note>
+        <Note ID="84" FontSize="12.0" Position="1356.6875,794.949219" Width="45.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>modes</String>
+            <ConnectedNoteIDs>78, 85-86</ConnectedNoteIDs>
+        </Note>
+        <Note ID="85" FontSize="12.0" Position="1350.324219,746.746094" Width="85.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>opening mode</String>
+            <ConnectedNoteIDs>84</ConnectedNoteIDs>
+        </Note>
+        <Note ID="86" FontSize="12.0" Position="1419.589844,771.480469" Width="200.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>test mode (self test, show one-by-one elements in system)</String>
+            <ConnectedNoteIDs>84</ConnectedNoteIDs>
+        </Note>
+        <Note ID="87" FontSize="12.0" Position="1062.078125,730.570312" Width="108.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>hosted on different port, but accessible from LHGUI</String>
+            <ConnectedNoteIDs>78</ConnectedNoteIDs>
+        </Note>
+        <Note ID="88" FontSize="12.0" Position="1186.53125,693.339844" Width="91.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>for curators/museum staff to operate</String>
+            <ConnectedNoteIDs>78</ConnectedNoteIDs>
+        </Note>
+        <Note ID="89" FontSize="12.0" Position="1329.410156,659.007812" Width="107.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>generate system reports and email them to team(s)</String>
+            <ConnectedNoteIDs>78</ConnectedNoteIDs>
+        </Note>
+        <Note ID="90" FontSize="12.0" Position="851.132812,562.585938" Width="128.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>multi-speaker systems</String>
+            <ConnectedNoteIDs>38</ConnectedNoteIDs>
+        </Note>
+        <Note ID="91" FontSize="12.0" Position="745.921875,612.941406" Width="145.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>spatial sound instruments</String>
+            <ConnectedNoteIDs>38, 92-93</ConnectedNoteIDs>
+        </Note>
+        <Note ID="92" FontSize="12.0" Position="882.199219,639.78125" Width="54.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>software</String>
+            <ConnectedNoteIDs>91</ConnectedNoteIDs>
+        </Note>
+        <Note ID="93" FontSize="12.0" Position="803.191406,671.148438" Width="139.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>interactive environments</String>
+            <ConnectedNoteIDs>91</ConnectedNoteIDs>
+        </Note>
+        <Note ID="94" FontSize="12.0" Position="607.167969,457.074219" Width="106.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>“spatial properties of sound as more properties to be able to create artistic/living expression”</String>
+            <ConnectedNoteIDs>38</ConnectedNoteIDs>
+        </Note>
+        <Note ID="95" FontSize="12.0" Position="727.921875,443.691406" Width="200.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>spatial: not coming from stereo speakers. sound can be a source, an object. </String>
+            <ConnectedNoteIDs>38, 96</ConnectedNoteIDs>
+        </Note>
+        <Note ID="96" FontSize="12.0" Position="779.964844,347.941406" Width="200.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>as a sound designer w/ 4Dsound, you don’t focus on where the speakers are, you focus on where in the space the sound sources/objects are</String>
+            <ConnectedNoteIDs>95</ConnectedNoteIDs>
+        </Note>
+        <Note ID="97" FontSize="12.0" Position="1093.515625,392.597656" Width="200.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>designing of behaviours, but not only mapping this onto sound, but also onto movement in the sculpture:
+
+virtual objects drive the actuators</String>
+            <ConnectedNoteIDs>98</ConnectedNoteIDs>
+        </Note>
+        <Note ID="98" FontSize="12.0" Position="952.882812,486.039062" Width="99.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>this week’s focus</String>
+            <ConnectedNoteIDs>38, 97, 99</ConnectedNoteIDs>
+        </Note>
+        <Note ID="99" FontSize="12.0" Position="1048.777344,522.667969" Width="49.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>goals</String>
+            <ConnectedNoteIDs>98, 100</ConnectedNoteIDs>
+        </Note>
+        <Note ID="100" FontSize="12.0" Position="1163.621094,509.070312" Width="200.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>create software that is able to use the IDs of the objects, but map them onto other actuators in the sculpture</String>
+            <ConnectedNoteIDs>99</ConnectedNoteIDs>
+        </Note>
+        <Note ID="101" FontSize="12.0" Position="1126.554688,322.601562" Width="200.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>the green points in the visualization sketch, this creates attractors for the exciters</String>
+            <ConnectedNoteIDs>102</ConnectedNoteIDs>
+        </Note>
+        <Note ID="102" FontSize="12.0" Position="1083.246094,282.34375" Width="61.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>interfaces</String>
+            <ConnectedNoteIDs>101</ConnectedNoteIDs>
+        </Note>
+        <Note ID="103" FontSize="12.0" Position="1125.015625,239.160156" Width="71.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>terminology</String>
+            <ConnectedNoteIDs>104</ConnectedNoteIDs>
+        </Note>
+        <Note ID="104" FontSize="12.0" Position="1228.589844,248.28125" Width="200.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>exciter: the virtual object that is mapped onto the actuators</String>
+            <ConnectedNoteIDs>103</ConnectedNoteIDs>
+        </Note>
+        <Note ID="105" FontSize="12.0" Position="813.863281,256.324219" Width="200.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>sound source is noise, filtered into 13 bands quite rigidly. the different filterbands are attenuated by each of the actuators’ relative intensities</String>
+        </Note>
+        <Note ID="106" FontSize="12.0" Position="1307.476562,394.773438" Width="200.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>philip highlighted the two communities: architecture and spatial audio-focused sound design</String>
+        </Note>
+        <Note ID="107" FontSize="12.0" Position="175.6875,27.496094" Width="50.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>excitors</String>
+            <ConnectedNoteIDs>110</ConnectedNoteIDs>
+            <PointsToNoteIDs>110</PointsToNoteIDs>
+        </Note>
+        <Note ID="108" FontSize="12.0" Position="243.550781,36.773438" Width="67.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>processing</String>
+            <ConnectedNoteIDs>111, 113</ConnectedNoteIDs>
+            <PointsToNoteIDs>111</PointsToNoteIDs>
+        </Note>
+        <Note ID="110" FontSize="12.0" Position="112.683594,195.472656" Width="63.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>4D engine</String>
+            <ConnectedNoteIDs>107, 113, 121-122</ConnectedNoteIDs>
+            <PointsToNoteIDs>122</PointsToNoteIDs>
+        </Note>
+        <Note ID="111" FontSize="12.0" Position="437.085938,206.886719" Width="123.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>Master script  (Adam)</String>
+            <ConnectedNoteIDs>108, 123</ConnectedNoteIDs>
+            <PointsToNoteIDs>123</PointsToNoteIDs>
+        </Note>
+        <Note ID="113" FontSize="12.0" Position="284.863281,273.046875" Width="64.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>max patch</String>
+            <ConnectedNoteIDs>108, 110</ConnectedNoteIDs>
+            <PointsToNoteIDs>108, 110</PointsToNoteIDs>
+        </Note>
+        <Note ID="119" FontSize="12.0" Position="129.667969,131.640625" Width="56.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>positions</String>
+        </Note>
+        <Note ID="120" FontSize="12.0" Position="320.128906,106.691406" Width="109.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>actuator intensities</String>
+        </Note>
+        <Note ID="121" FontSize="12.0" Position="413.417969,147.132812" Width="20.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>\</String>
+            <ConnectedNoteIDs>110</ConnectedNoteIDs>
+            <PointsToNoteIDs>110</PointsToNoteIDs>
+        </Note>
+        <Note ID="122" FontSize="12.0" Position="91.574219,290.640625" Width="57.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>speakers</String>
+            <ConnectedNoteIDs>110, 125</ConnectedNoteIDs>
+        </Note>
+        <Note ID="123" FontSize="12.0" Position="477.816406,298.042969" Width="58.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>actuators</String>
+            <ConnectedNoteIDs>111, 125-126</ConnectedNoteIDs>
+        </Note>
+        <Note ID="124" FontSize="12.0" Position="288.917969,205.261719" Width="94.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>interface control</String>
+        </Note>
+        <Note ID="125" FontSize="12.0" Position="291.847656,378.296875" Width="57.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>sculpture</String>
+            <ConnectedNoteIDs>122-123</ConnectedNoteIDs>
+        </Note>
+        <Note ID="126" FontSize="12.0" Position="581.378906,258.234375" Width="200.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>could be some kind of influence on a granular level, within the boundaries of one or more actuators, (sorry lost track of the discussion)</String>
+            <ConnectedNoteIDs>123</ConnectedNoteIDs>
+        </Note>
+        <Note ID="127" FontSize="12.0" Position="673.71875,122.582031" Width="80.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>processing has a mode for working on python</String>
+        </Note>
+    </Notes>
+    <BackgroundShapes>
+        <Shape ID="14" Sticky="No" Position="529.054688,1004.132812" Width="300.0" Height="200.0">
+            <Appearance>
+                <Border Weight="1"></Border>
+            </Appearance>
+        </Shape>
+        <Shape ID="66" Sticky="No" Position="20.0,825.039062" Width="367.066406" Height="462.320312">
+            <Appearance>
+                <Border Weight="1"></Border>
+            </Appearance>
+        </Shape>
+        <Shape ID="114" Sticky="No" Position="166.085938,12.640625" Width="146.0" Height="89.0">
+            <Appearance>
+                <Border Weight="1"></Border>
+            </Appearance>
+        </Shape>
+        <Shape ID="115" Sticky="No" Position="102.480469,179.511719" Width="83.0" Height="54.0">
+            <Appearance>
+                <Border Weight="1"></Border>
+            </Appearance>
+        </Shape>
+        <Shape ID="117" Sticky="No" Position="426.671875,191.84375" Width="143.0" Height="54.0">
+            <Appearance>
+                <Border Weight="1"></Border>
+            </Appearance>
+        </Shape>
+        <Shape ID="118" Sticky="No" Position="274.363281,257.96875" Width="84.0" Height="54.0">
+            <Appearance>
+                <Border Weight="1"></Border>
+            </Appearance>
+        </Shape>
+    </BackgroundShapes>
+    <AutoFit>0-1, 3-13, 15-16, 18-25, 36, 38-39, 41-43, 45, 49-51, 55-57, 61-65, 67, 69-70, 72-74, 77-78, 80-85, 90-93, 98, 102-103, 107-108, 110-111, 113, 115, 117-125</AutoFit>
+    <NoteStyles>
+        <Style Name="Title Text" ID="9BA3D7AC-B4E0-4394-934D-F29D7595F99A" AffectFontStyle="Yes" AffectAlignment="Yes" AffectTextColor="No" AffectNoteBody="No" AffectFade="No">
+            <FontSize>28.0</FontSize>
+            <IsBold>Yes</IsBold>
+        </Style>
+        <Style Name="Red Text" ID="55897AF2-6F13-4491-8885-367CAE90BF6D" AffectFontStyle="No" AffectAlignment="No" AffectTextColor="Yes" AffectNoteBody="No" AffectFade="No">
+            <TextColor>1.0 0.0 0.0</TextColor>
+        </Style>
+        <Style Name="Brown Bubble" ID="EFBE00FE-2682-4B84-A350-2F0352BAB1E2" AffectFontStyle="No" AffectAlignment="No" AffectTextColor="No" AffectNoteBody="Yes" AffectFade="No">
+            <BorderThickness>1</BorderThickness>
+            <BorderColor>0.290055 0.1523 0.182215</BorderColor>
+            <FillColor>0.940019 0.892907 0.779716</FillColor>
+        </Style>
+        <Style Name="Yellow Bubble" ID="5002FA7C-BACB-49A4-9206-0951B4748B7C" AffectFontStyle="No" AffectAlignment="No" AffectTextColor="No" AffectNoteBody="Yes" AffectFade="No">
+            <BorderThickness>1</BorderThickness>
+            <BorderColor>0.756763 0.785592 0.373258</BorderColor>
+            <FillColor>0.906773 0.910625 0.634363</FillColor>
+        </Style>
+        <Style Name="Green Bubble" ID="CB921C65-8684-44FB-A3B8-3AA9FBC0F434" AffectFontStyle="No" AffectAlignment="No" AffectTextColor="No" AffectNoteBody="Yes" AffectFade="No">
+            <BorderThickness>1</BorderThickness>
+            <BorderColor>0.331867 0.609932 0.356197</BorderColor>
+            <FillColor>0.790123 0.882328 0.80198</FillColor>
+        </Style>
+        <Style Name="Blue Bubble" ID="6F5EF9B3-5C59-433D-B00C-3D605CB7E766" AffectFontStyle="No" AffectAlignment="No" AffectTextColor="No" AffectNoteBody="Yes" AffectFade="No">
+            <BorderThickness>1</BorderThickness>
+            <BorderColor>0.477193 0.557066 0.76433</BorderColor>
+            <FillColor>0.840969 0.866828 0.925903</FillColor>
+        </Style>
+        <Style Name="Pink Bubble" ID="127D9529-061B-4639-9158-56ABAB019ACB" AffectFontStyle="No" AffectAlignment="No" AffectTextColor="No" AffectNoteBody="Yes" AffectFade="No">
+            <BorderThickness>1</BorderThickness>
+            <BorderColor>0.747881 0.366532 0.542813</BorderColor>
+            <FillColor>0.918452 0.807302 0.863467</FillColor>
+        </Style>
+    </NoteStyles>
+    <UISettings>
+        <BackgroundColor>0.999737 0.986332 0.931298</BackgroundColor>
+        <DefaultFont>Helvetica</DefaultFont>
+        <DefaultTextColor>0.0 0.0 0.0</DefaultTextColor>
+    </UISettings>
+    <PrintSettings PaperSize="612.0,792.0" LeftMargin="72.0" RightMargin="72.0" TopMargin="90.0" BottomMargin="90.0" PaperType="na-letter" Orientation="Portrait" HorizontalPagination="Clip" VerticalPagination="Auto" ScaleFactor="1.0" HorizontallyCentered="Yes" VerticallyCentered="Yes" Collates="Yes" PagesAcross="1" PagesDown="1"></PrintSettings>
+</ScappleDocument>
