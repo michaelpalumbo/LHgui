@@ -22,6 +22,7 @@
     "ip": "^1.1.5",
     "list-files": "^1.1.4",
     "lodash": "^4.17.11",
+    "node-red-contrib-hostip": "0.0.3",
     "vorpal": "^1.12.0",
     "web-terminal": "^0.7.0"
   }

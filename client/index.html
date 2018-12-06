@@ -47,6 +47,8 @@ document.domain = document.domain;
         <iframe src="http://localhost:3000" height="100%" width="100%"></iframe>
     </div> -->
     <div id="tab3" class="tab">
+        <iframe id="Node-RED" height="100%" width="100%"></iframe>
+
         <!-- <input top=5px id="server" type="text" value="ws://localhost:8080" size="40"> -->
     </div>
 </div>
@@ -56,6 +58,8 @@ document.domain = document.domain;
 var Host = "http://" + location.host.substr(0, location.host.indexOf(':'));
 document.getElementById('iframeTerminal').src = Host + ':8080/terminal.html';
 document.getElementById('iframeCode').src = Host + ':8080/code.html';
+document.getElementById('Node-RED').src = Host + ':8080/Node-RED.html';
+
 
 var config = {
     tabs: {
@@ -64,7 +68,7 @@ var config = {
         tabs: [
             { id: 'tab1', caption: 'Code' },
             { id: 'tab2', caption: 'Terminal' },
-            { id: 'tab3', caption: 'etc' },
+            { id: 'tab3', caption: 'Rasbperry Pi' },
         ],
         onClick: function (event) {
             $('#tab-example .tab').hide();
