@@ -1,0 +1,163 @@
+<!doctype html>
+<html>
+<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+<title>LSGUI Code Editor</title>
+
+<head>
+<!-- //TEMPORARY: just to aid in development workflow -->
+<!-- <meta http-equiv="refresh" content="5; URL=http://localhost:8080"> -->
+<!--        SOURCES         -->
+<!-- Codemirror -->
+    <!-- styles -->
+
+    <link rel=stylesheet href="cm/docs.css">
+    <!-- <link rel=stylesheet href="cm/codemirror.css">
+    <link rel=stylesheet href="cm/addons/fullscreen/fullscreen.css">
+    <link rel=stylesheet href="cm/one-dark.css"> -->
+
+
+
+    <!-- <link rel=stylesheet href="cm/merge.css">
+    <link rel=stylesheet href="cm/icecoder.css"> -->
+
+    <!-- scripts -->
+    <!-- <script src="cm/codemirror.js"></script>
+    <script src="cm/css.js"></script> -->
+    <!-- load local server version if cdn unavailable -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/diff_match_patch/20121119/diff_match_patch.js"></script><script>if (!window.jQuery) document.write('<script src="cm/diff_match_patch.js"><\/script>');</script> -->
+
+    <!-- <script src="cm/htmlmixed.js"></script> -->
+    <!-- <script src="cm/xml.js"></script> -->
+    <!-- <script src="cm/merge.js"></script> -->
+    <!-- <script src="cm/modes/javascript.js"></script> -->
+    <!-- <script src="cm/modes/clike.js"></script>
+    <script src="cm/modes/glsl.js"></script>
+    <script src="cm/modes/python.js"></script>
+    <script src="cm/addons/buttons/buttons.js"></script>
+  <script src="cm/addons/panel.js"></script>
+  <script src="cm/addons/fullscreen/fullscreen.js"></script>
+  <script src="cm/cm-resize.js"></script> -->
+
+
+<!-- General Sources -->
+    <!-- style -->
+    <link rel=stylesheet href="css/jquery-ui.css">
+
+    <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
+
+    <!-- <link rel=stylesheet href="css/cards.css"> -->
+    <script src="js/jquery-3.3.1.js"></script>
+    <script src="js/jquery-ui.js"></script>
+
+    <!-- resizeable columns -->
+    <!-- <link rel=stylesheet href="css/colresizeable.css"> -->
+
+    <!-- <script src="js/colResizable-1.5.min.js"></script> -->
+
+    <!-- <script src="js/jquery.mousewheel.js"></script> -->
+
+    <!-- server address & open/close -->
+
+</head>
+
+<style>
+
+.cm-highlight {color: lightgreen; background-color: green}
+.cm-highlight-lastLine {color: rgb(144, 182, 238); background-color: rgb(0, 102, 128)}
+.CodeMirror-selection-highlight-scrollbar {background-color: green}
+
+</style>
+
+<body>
+<div id="cpuBusy"></div>
+</body>
+<script>
+    //workaround for cross domain origin requests issue
+document.domain = document.domain;
+
+
+
+// function setIFrame(pi){
+    
+// }
+var ws_url = "ws://" + window.location.host;
+
+var bodySize = [document.body.clientWidth, document.body.clientHeight]
+
+// set the host to public IP
+var Host = location.host.substr(0, location.host.indexOf(':'));
+var ws_url;
+var ws;
+var ws_url = "ws://" + window.location.host;
+// dirty flag for cm editor
+var editorIsDirty;
+var clientName;
+
+/////////////////// WEBSOCKET STUFF
+
+var ws;
+function ws_connect(opt) {
+	ws = new WebSocket(opt.transport+'://'+opt.host+':'+opt.port, opt.protocols);
+	ws.binaryType = 'arraybuffer';
+	ws.onerror = opt.onerror;
+	ws.onopen = opt.onopen;
+	ws.onmessage = opt.onmessage;
+	ws.onclose = function(e) {
+		ws = null;
+		setTimeout(function(){
+			console.log("websocket reconnecting...");
+			ws_connect(opt);
+		}, 2000);		
+		opt.onclose(e);
+	}
+	return ws;
+}
+
+ws_connect({
+	transport: "ws",
+	host: Host,
+	port: "8080",
+	protocols: [],
+	onerror: function() {},
+	onclose: function(e) { console.log('websocket closed', e.code); },
+	onopen: function() {
+    console.log('websocket opened');
+
+	},
+	onmessage: function(e) { 
+		if (e.data instanceof ArrayBuffer) {
+			console.log("ws received arraybuffer of " + e.data.byteLength + " bytes");
+		} else {
+			try {
+        // console.log(e)
+				var msg = JSON.parse(e.data);
+				// console.log("ws received JSON", msg);
+				handleMessage(msg);
+			} catch (e) {
+				console.log('ws bad JSON: ', e);
+			}
+		} 
+	},
+});
+
+function handleMessage(msg) {
+	switch (msg.type) {
+
+    case "diagnostics":
+    // filesOpen = msg.value
+    
+    document.getElementById('cpuBusy').innerHTML = ('CPU Percentage Busy: ' + msg.cpuBusy.toFixed(2) + '%')
+    break;
+
+    }
+
+
+}
+
+
+</script>
+
+
+
+</html>
+

@@ -5,12 +5,18 @@ const http = require('http');
 const url = require('url');
 const fs = require("fs");
 const path = require("path");
+const os = require("os")
 // const { exec, execSync, spawn, spawnSync, fork } = require('child_process')
 const terminal = require("web-terminal");
 const ip = require('ip')
 // const shell = require('vorpal')();
 const lodash = require('lodash')
 var find = require('list-files');
+var cpuu = require('cputilization');
+var vitals = require('vitals');
+
+
+
 
 const project_path = path.join(__dirname + '../../17540-Luddy-Hall/Master Laptop/');
 const server_path = __dirname;
@@ -73,7 +79,6 @@ wss.on('connection', function(ws, req) {
   }));
 
   find(function(result) {
-    console.log(result.includes('*.*'))
     // console.log(result);
     //=> './dirname/a.js'
     //=> './dirname/b.js'
@@ -272,6 +277,26 @@ function handleMessage(msg, session) {
     break;
 
 
-	}
+  }
+ 
+var sampler = cpuu({interval: 2000});
+ 
+sampler.on('sample', function(sample) {
+  cpuBusy = 100 * sample.percentageBusy()
+
+  send_all_clients(JSON.stringify({
+      date: Date.now(),
+      type: "diagnostics",
+      cpuBusy: cpuBusy,
+
+      // filesOpen: filesOpen
+    }))
+
+});
+
+
 }
+
+
+
 

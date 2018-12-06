@@ -51,6 +51,9 @@ document.domain = document.domain;
 
         <!-- <input top=5px id="server" type="text" value="ws://localhost:8080" size="40"> -->
     </div>
+    <div id="tab4" class="tab">
+            <iframe id="diagnostics" height="100%" width="100%"></iframe>
+    </div>
 </div>
 
 <!-- Tabs mechanism using https://github.com/vitmalina/w2ui/ -->
@@ -59,7 +62,7 @@ var Host = "http://" + location.host.substr(0, location.host.indexOf(':'));
 document.getElementById('iframeTerminal').src = Host + ':8080/terminal.html';
 document.getElementById('iframeCode').src = Host + ':8080/code.html';
 document.getElementById('Node-RED').src = Host + ':8080/Node-RED.html';
-
+document.getElementById('diagnostics').src = Host + ':8080/diagnostics.html';
 
 var config = {
     tabs: {
@@ -69,7 +72,7 @@ var config = {
             { id: 'tab1', caption: 'Code' },
             { id: 'tab2', caption: 'Terminal' },
             { id: 'tab3', caption: 'Rasbperry Pi' },
-            { id: 'tab4', caption: 'Uber Eats Cheat Codes' },
+            { id: 'tab4', caption: 'Diagnostics' },
         ],
         onClick: function (event) {
             $('#tab-example .tab').hide();
