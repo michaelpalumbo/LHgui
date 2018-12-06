@@ -332,7 +332,9 @@ function writeSourceCode()
         newSource = dv.getValue()
 
         var changeMsg = prompt('Please provide a comment about your changes', 'reticulating splines')
-
+        if (changeMsg === null) {
+            return; //break out of the function early
+          }
         ws.send(JSON.stringify({
           type: "update",
           date: Date.now(),
